@@ -22,21 +22,21 @@ export function Invite() {
             With the blessings of our elders
           </p>
           <p className="mt-6 font-hindi text-lg leading-relaxed">
-            शर्मा एवं गुप्ता परिवार आपके एवं आपके परिवार को
+            दोनों परिवार आपको एवं आपके समस्त परिवार को
             <br />
             परम स्नेह के साथ आमंत्रित करते हैं
           </p>
           <p className="mt-8 text-base leading-relaxed opacity-80">
-            We, the Sharma &amp; Gupta families, joyfully invite you and your
-            family to grace the auspicious wedding of our beloved children
+            With the blessings of our elders, our families warmly invite you
+            and your entire family to celebrate the auspicious wedding of
           </p>
           <p className="gold-text mt-8 font-display text-5xl md:text-6xl">
-            Aarav weds Diya
+            Hrishikesh weds Nandita
           </p>
-          <p className="mt-4 font-hindi text-xl">आरव एवं दिया का शुभ विवाह</p>
+          <p className="mt-4 font-hindi text-xl">ऋषिकेश एवं नंदिता का शुभ विवाह</p>
           <GoldDivider className="mt-10 opacity-70" />
           <p className="mt-8 font-display text-2xl">
-            Two days of celebrations · dates to follow
+            1 &amp; 2 December 2026
           </p>
           <p className="mt-2 text-sm uppercase tracking-[0.3em] opacity-70">
             La Cabana Beach &amp; Spa · Goa
@@ -61,17 +61,17 @@ const STORY = [
   {
     hindi: "पहली मुलाकात",
     title: "The First Hello",
-    text: "A family wedding in Hyderabad, one crowded table — and a conversation that simply refused to end.",
+    text: "Every story begins somewhere. The details of ours will be shared here soon.",
   },
   {
     hindi: "सफ़र",
     title: "The Journey",
-    text: "Different cities, long calls, endless chai. Somewhere between it all, friendship quietly became love.",
+    text: "Two paths became one journey, with our families and their blessings beside us.",
   },
   {
     hindi: "हाँ!",
     title: "The Yes",
-    text: "One nervous question, one happy yes — and now two families, one celebration, and you.",
+    text: "And now, a new beginning — made brighter by celebrating it with you.",
   },
 ];
 
@@ -84,7 +84,7 @@ export function CoupleStory() {
           <div className="gold-frame overflow-hidden rounded-sm">
             <img
               src={coupleArt}
-              alt="Mughal-style painting of the couple under a marigold mandap"
+              alt="Illustration of a couple under a marigold mandap, not a portrait of Hrishikesh and Nandita"
               width={1200}
               height={1200}
               loading="lazy"

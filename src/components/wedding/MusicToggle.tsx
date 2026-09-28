@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
-import music from "@/assets/wedding-music.mp3";
+import music from "@/assets/wedding-song.mp3.asset.json";
 import { Button } from "@/components/ui/button";
 
 /**
@@ -53,7 +53,7 @@ export default function MusicToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src={music} loop preload="auto" />
+       <audio ref={audioRef} src={music.url} loop preload="none" />
        <Button
          type="button"
          variant="outline"

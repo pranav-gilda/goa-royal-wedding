@@ -46,7 +46,7 @@ export default function Hero() {
           transition={{ delay: 0.55, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="hero-heading mt-5 font-display text-[clamp(3.5rem,14vw,5rem)] leading-[0.9] md:text-8xl"
         >
-          Aarav &amp; Diya
+          Hrishikesh &amp; Nandita
         </motion.h1>
 
         <motion.p
@@ -55,7 +55,7 @@ export default function Hero() {
           transition={{ delay: 1, duration: 1 }}
           className="hero-ink mt-5 font-hindi text-xl md:text-3xl"
         >
-          आरव एवं दिया
+          ऋषिकेश एवं नंदिता
         </motion.p>
 
         <motion.div
@@ -65,7 +65,7 @@ export default function Hero() {
           className="mt-7 space-y-3"
         >
           <p className="hero-ink font-display text-2xl md:text-3xl">
-            Two days in Goa · dates to follow
+            1 &amp; 2 December 2026
           </p>
           <p className="hero-gold text-xs uppercase tracking-widest md:text-sm">
             La Cabana Beach &amp; Spa · Goa
