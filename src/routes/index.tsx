@@ -1,24 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Hero from "@/components/wedding/Hero";
+import {
+  CoupleStory,
+  Events,
+  Footer,
+  Invite,
+  Travel,
+} from "@/components/wedding/Sections";
+import RsvpSection from "@/components/wedding/RsvpSection";
+import MusicToggle from "@/components/wedding/MusicToggle";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      {
+        title: "Aarav & Diya — A Royal Wedding in Goa · 12–13 December 2026",
+      },
+      {
+        name: "description",
+        content:
+          "शुभ विवाह — the Sharma & Gupta families invite you to two days of royal celebrations in Goa: Haldi, Mehndi, Sangeet, Wedding & Reception. RSVP here.",
+      },
+      {
+        property: "og:title",
+        content: "Aarav & Diya — A Royal Wedding in Goa",
+      },
+      {
+        property: "og:description",
+        content:
+          "Two days, six celebrations, one royal Goan wedding. RSVP for your family here.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="overflow-x-clip bg-background font-body text-foreground">
+      <Hero />
+      <Invite />
+      <CoupleStory />
+      <Events />
+      <Travel />
+      <RsvpSection />
+      <Footer />
+      <MusicToggle />
+    </main>
   );
 }
