@@ -1,47 +1,50 @@
-# Royal Goa Wedding Invite + RSVP
+# Royal Marwari Wedding Invite + RSVP (Goa)
 
-A single scrolling wedding invitation site with a royal jewel-toned aesthetic (emerald/royal blue, gold, peacock motifs), covering a 2-day, 6-function celebration in Goa, with an RSVP form that writes each response directly into the couple's Google Sheet.
+A single scrolling, grand royal wedding invitation for a 2-day, 6-function Marwari wedding in Goa. Orthodox "entire family invites you" tone with Hindi + English text, jewel-toned royal aesthetic (emerald/royal blue, gold, peacock/paisley motifs), smooth scroll animations, a short couple's story arc, background music on open, and an RSVP form that writes directly into the family's Google Sheet.
 
-## What guests will see
+## What guests will see (one long scroll)
 
-One long, elegant page:
+1. **Hero** — ornate gold-framed opening: couple's names (placeholders) in elegant Hindi + English, wedding dates, "Goa" destination, generated royal artwork (palace/paisley/peacock motifs) as placeholders for real photos later. Background instrumental music starts on open (with a visible mute toggle, since browsers require a tap to allow sound).
+2. **Family invitation (orthodox style)** — formal Hindi + English invite in the traditional voice: both families' names (placeholders) warmly inviting the guest's entire family, with blessings line (e.g. शुभ विवाह).
+3. **The Couple** — a very short, quick "hero & heroine" story arc: 3–4 beats (how they met → the journey → the yes) with small animated illustrations/placeholders, kept snappy.
+4. **The Celebrations — 2 days, 6 functions** — event cards with Hindi + English names:
+   - Day 1: Haldi (हल्दी), Mehndi (मेहंदी), Sangeet (संगीत)
+   - Day 2: Wedding / Pheras (विवाह), Reception (स्वागत समारोह), Farewell dinner
+   - Each card: date/time (placeholder), venue (placeholder), dress-code chip (e.g. "Shades of yellow", "Jewel tones", "Traditional red & gold") — easy to edit later.
+5. **Travel & Stay (Hyderabad → Goa)** — section for travel coordination: placeholder blocks for flight/train timings, taxi & pickup-drop arrangements, and stay details. Built as a simple structured section now so details drop in later without redesign.
+6. **RSVP** — royal-styled form: guest name(s), number of guests, email, phone number, attending/declining, and per-event attendance checkboxes. Thank-you confirmation on submit.
+7. **Footer** — family contact note + monogram.
 
-1. **Hero** — couple's names (placeholders), wedding dates, "Goa" destination, ornate gold-framed design with peacock/paisley motifs, generated royal artwork as placeholder imagery (swapped for real photos later).
-2. **Invitation message** — a warm formal invite note with family names (placeholder text).
-3. **The Celebrations** — 6 event cards across 2 days:
-   - Day 1: Haldi, Mehndi, Sangeet
-   - Day 2: Wedding, Reception, Farewell/After-party
-   - Each card: event name, date/time (placeholder), venue (placeholder), and a dress-code chip (e.g. "Shades of yellow", "Jewel tones", "Pastels", "Traditional red & gold") — easy to edit later.
-4. **Venue & Travel** — Goa location section with placeholder resort name, map placeholder, and stay/travel notes.
-5. **RSVP** — a royal-styled form: guest name(s), number of guests, email, phone number, plus attending/declining and per-event attendance checkboxes. Submit shows a thank-you confirmation.
-6. **Footer** — contact note and monogram.
+## Design & motion direction
 
-## Design direction
-
-- Jewel tones: deep emerald + royal blue base, gold accents, ivory text panels
-- Ornamental serif display font (e.g. Cormorant/Playfair) paired with a clean body font
-- Gold filigree dividers, paisley/peacock generated motifs, soft scroll animations
-- Fully responsive for phone viewing (most guests will open on mobile)
+- Jewel tones: deep emerald + royal blue, gold filigree, ivory panels; peacock/paisley generated motifs
+- Ornamental serif display (Cormorant/Playfair) + Devanagari-supporting font (e.g. Tiro Devanagari Hindi) for Hindi text
+- Smooth scroll-reveal animations (fade/rise on section entry), subtle gold shimmer, gentle parallax on hero
+- Optional short looping ambient video moments in the scroll (e.g. drifting marigolds/diyas) if they elevate without slowing load — decide during build
+- Background music: soft instrumental loop with autoplay-after-first-tap handling + mute control
+- Mobile-first (most guests open on phones)
 
 ## How RSVP data reaches you (Google Sheets)
 
-- You'll connect your Google account via the built-in Google Sheets connector (one click, in-chat card).
-- On submit, the site validates the form and appends a row to your spreadsheet: name, guests, email, phone, attendance, events selected, timestamp.
-- You'll need to share the spreadsheet ID (paste the sheet link) — or I can create a new spreadsheet in your Drive automatically on first use.
-- All sheet writes happen server-side; guests never see your sheet or credentials.
+- You connect your Google account via the built-in Google Sheets connector (one-click in-chat card).
+- On submit, the site validates and appends a row to your spreadsheet: name, guests, email, phone, attendance, events selected, timestamp.
+- You'll paste your sheet link (spreadsheet ID), or I can create a fresh spreadsheet in your Drive on first use.
+- All writes happen server-side; guests never see the sheet or credentials.
 
 ## Technical details
 
-- TanStack Start single route (`src/routes/index.tsx`) with section anchors; semantic design tokens in `src/styles.css` (oklch jewel palette).
-- RSVP submit via `createServerFn` calling the Google Sheets API through the Lovable connector gateway (`google_sheets` connector, `values:append`).
+- TanStack Start single route (`src/routes/index.tsx`) with section anchors; semantic design tokens in `src/styles.css` (oklch jewel palette); fonts loaded via `<link>` in `__root.tsx`.
+- RSVP submit via `createServerFn` → Google Sheets API through the Lovable connector gateway (`values:append`).
 - Zod validation client- and server-side (name required, valid email, phone, guest count 1–10).
-- Generated placeholder images (hero, event motifs, venue) saved under `src/assets/`; marked clearly so real photos drop in later.
+- Generated placeholder images under `src/assets/` (hero, couple story beats, event motifs, venue), clearly swappable for real photos.
+- Scroll animations via Motion for React (scroll-triggered reveals); music via a small audio element with user-gesture unlock.
 - Per-route `head()` metadata with wedding-specific title/description.
 
 ## Build order
 
-1. Design tokens + fonts + styles
-2. Page sections with placeholder content and generated imagery
-3. RSVP form UI + validation
-4. Google Sheets connector link + server function append
-5. End-to-end test: submit RSVP, verify row appears in sheet
+1. Design tokens, fonts (incl. Devanagari), base styles
+2. Hero + family invitation + couple story sections with generated placeholder art
+3. Events, dress codes, travel/stay sections
+4. RSVP form UI + validation + music/animation polish
+5. Google Sheets connector link + server append function
+6. End-to-end test: submit RSVP, verify row appears in sheet
