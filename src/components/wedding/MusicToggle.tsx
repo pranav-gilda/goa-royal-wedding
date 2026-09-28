@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
-import music from "@/assets/wedding-music.mp3";
+import music from "@/assets/wedding-song.mp3.asset.json";
+import { Button } from "@/components/ui/button";
 
 /**
  * Soft instrumental backdrop. Browsers block autoplay until the visitor
@@ -52,18 +53,20 @@ export default function MusicToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src={music} loop preload="auto" />
-      <button
+       <audio ref={audioRef} src={music.url} loop preload="none" />
+       <Button
+         type="button"
+         variant="outline"
         onClick={toggle}
         aria-label={playing ? "Mute music" : "Play music"}
-        className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 bg-background/70 text-primary backdrop-blur transition hover:bg-primary/15"
+         className="fixed bottom-5 right-5 z-50 h-12 w-12 rounded-full border-primary/50 bg-background/90 p-0 text-primary shadow-sm backdrop-blur hover:bg-accent"
       >
         {playing ? (
           <Volume2 className="h-5 w-5" />
         ) : (
           <VolumeX className="h-5 w-5" />
         )}
-      </button>
+       </Button>
     </>
   );
 }

@@ -32,7 +32,7 @@ export function GoldDivider({ className = "" }: { className?: string }) {
       width={1792}
       height={608}
       loading="lazy"
-      className={`mx-auto h-10 w-auto opacity-90 md:h-14 ${className}`}
+       className={`mx-auto h-8 max-w-full object-contain opacity-80 md:h-14 ${className}`}
     />
   );
 }
@@ -49,11 +49,11 @@ export function SectionHeading({
   return (
     <Reveal className="text-center">
       <p className="font-hindi text-xl text-primary">{hindi}</p>
-      <h2 className="gold-text animate-shimmer mt-2 font-display text-4xl md:text-5xl">
+       <h2 className="gold-text animate-shimmer mt-2 font-display text-4xl leading-tight md:text-5xl">
         {english}
       </h2>
       {sub ? (
-        <p className="mt-3 tracking-wide text-muted-foreground">{sub}</p>
+         <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">{sub}</p>
       ) : null}
       <GoldDivider className="mt-5" />
     </Reveal>

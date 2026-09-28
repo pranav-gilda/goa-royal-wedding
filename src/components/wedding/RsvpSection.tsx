@@ -4,18 +4,22 @@ import { useServerFn } from "@tanstack/react-start";
 import { submitRsvp } from "@/lib/rsvp.functions";
 import { GoldDivider, Reveal, SectionHeading } from "./decor";
 import { Loader2, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const EVENT_OPTIONS = [
-  "Haldi · हल्दी",
-  "Mehndi · मेहंदी",
+  "Vinayak · श्री गणेश पूजन",
+  "Maayra · मायरा",
   "Sangeet · संगीत",
-  "Baraat & Pheras · विवाह",
-  "Reception · स्वागत समारोह",
-  "Farewell Dinner · विदाई",
+  "After Party",
+  "Boho Carnival",
+  "Safa Bandhai · साफ़ा बंधाई",
+  "Baaraat · बारात",
+  "Jaimala · जयमाला",
+  "Shaadi & Dinner · विवाह एवं रात्रिभोज",
 ];
 
 const inputClass =
-  "w-full rounded-sm border border-input bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-primary/70 focus:outline-none focus:ring-1 focus:ring-ring";
+  "w-full min-h-12 rounded-sm border border-input bg-card px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/60 focus:border-primary/70 focus:outline-none focus:ring-1 focus:ring-ring";
 
 const labelClass = "mb-2 block text-sm tracking-wide text-muted-foreground";
 const errorClass = "mt-1.5 text-xs text-destructive";
@@ -80,7 +84,7 @@ export default function RsvpSection() {
   }
 
   return (
-    <section id="rsvp" className="relative px-6 py-24 md:py-32">
+    <section id="rsvp" className="relative px-6 py-16 md:py-28">
       <div className="absolute inset-0 bg-secondary/30" />
       <div className="relative mx-auto max-w-3xl">
         <SectionHeading
@@ -90,7 +94,7 @@ export default function RsvpSection() {
         />
 
         {mutation.isSuccess && mutation.data?.ok ? (
-          <Reveal className="mt-14 text-center">
+          <Reveal className="mt-10 text-center">
             <GoldDivider />
             <p className="gold-text mt-10 font-hindi text-4xl">धन्यवाद!</p>
             <h3 className="mt-3 font-display text-4xl">
@@ -105,10 +109,10 @@ export default function RsvpSection() {
             </p>
           </Reveal>
         ) : (
-          <Reveal delay={0.1} className="mt-12">
+          <Reveal delay={0.1} className="mt-10 md:mt-12">
             <form
               onSubmit={handleSubmit}
-              className="gold-frame space-y-8 rounded-sm bg-card/80 p-8 md:p-12"
+              className="gold-frame space-y-7 rounded-sm bg-card p-5 sm:p-8 md:p-12"
               noValidate
             >
               <div>
@@ -189,10 +193,11 @@ export default function RsvpSection() {
                   Will you join us? · क्या आप आ रहे हैं?
                 </span>
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <button
+                   <Button
                     type="button"
                     onClick={() => setAttending("yes")}
-                    className={`rounded-sm border px-4 py-3 transition ${
+                     variant="outline"
+                     className={`h-auto min-h-16 w-full flex-col whitespace-normal rounded-sm px-4 py-3 font-body leading-snug transition ${
                       attending === "yes"
                         ? "border-primary bg-primary/20 text-primary"
                         : "border-border text-foreground hover:border-primary/50"
@@ -202,11 +207,12 @@ export default function RsvpSection() {
                     <span className="block font-hindi text-sm opacity-80">
                       जी हाँ, आ रहे हैं
                     </span>
-                  </button>
-                  <button
+                   </Button>
+                   <Button
                     type="button"
                     onClick={() => setAttending("no")}
-                    className={`rounded-sm border px-4 py-3 transition ${
+                     variant="outline"
+                     className={`h-auto min-h-16 w-full flex-col whitespace-normal rounded-sm px-4 py-3 font-body leading-snug transition ${
                       attending === "no"
                         ? "border-primary bg-primary/20 text-primary"
                         : "border-border text-foreground hover:border-primary/50"
@@ -216,7 +222,7 @@ export default function RsvpSection() {
                     <span className="block font-hindi text-sm opacity-80">
                       नहीं आ सकेंगे
                     </span>
-                  </button>
+                   </Button>
                 </div>
                 {errors.attending ? (
                   <p className={errorClass}>{errors.attending}</p>
@@ -232,19 +238,20 @@ export default function RsvpSection() {
                     {EVENT_OPTIONS.map((event) => {
                       const active = selected.includes(event);
                       return (
-                        <button
+                         <Button
                           key={event}
                           type="button"
                           onClick={() => toggleEvent(event)}
                           aria-pressed={active}
-                          className={`rounded-full border px-4 py-2 text-sm transition ${
+                           variant="outline"
+                           className={`h-auto min-h-11 whitespace-normal rounded-sm px-4 py-2 text-sm transition ${
                             active
                               ? "border-primary bg-primary/20 text-primary"
                               : "border-border text-foreground hover:border-primary/50"
                           }`}
                         >
                           {event}
-                        </button>
+                         </Button>
                       );
                     })}
                   </div>
@@ -274,10 +281,10 @@ export default function RsvpSection() {
                 <p className={errorClass}>{mutation.data.error}</p>
               ) : null}
 
-              <button
+               <Button
                 type="submit"
                 disabled={mutation.isPending}
-                className="flex w-full items-center justify-center gap-2 rounded-sm border border-primary/60 bg-primary/15 px-8 py-4 font-display text-xl tracking-widest text-primary transition hover:bg-primary/30 disabled:opacity-60"
+                 className="h-auto min-h-14 w-full flex-wrap rounded-sm bg-primary px-4 py-3 font-display text-xl text-primary-foreground hover:bg-primary/90"
               >
                 {mutation.isPending ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -286,7 +293,7 @@ export default function RsvpSection() {
                 )}
                 Send RSVP
                 <span className="font-hindi text-base">· भेजें</span>
-              </button>
+               </Button>
             </form>
           </Reveal>
         )}

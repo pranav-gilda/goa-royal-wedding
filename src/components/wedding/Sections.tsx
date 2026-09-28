@@ -8,13 +8,13 @@ import venueArt from "@/assets/venue-art.png";
 
 export function Invite() {
   return (
-    <section id="invite" className="relative px-6 py-24 md:py-32">
+    <section id="invite" className="relative px-6 py-16 md:py-28">
       <SectionHeading
         hindi="सश्रद्ध शुभ निमंत्रण"
         english="The Families Invite You"
       />
-      <Reveal delay={0.15} className="mt-12">
-        <div className="invite-card gold-frame mx-auto max-w-2xl px-8 py-14 text-center md:px-14">
+      <Reveal delay={0.15} className="mt-9 md:mt-12">
+        <div className="invite-card gold-frame mx-auto max-w-2xl px-6 py-10 text-center sm:px-8 md:px-14 md:py-14">
           <p className="font-hindi text-lg text-gold-dark">
             ॥ श्री गणेशाय नमः ॥
           </p>
@@ -22,24 +22,24 @@ export function Invite() {
             With the blessings of our elders
           </p>
           <p className="mt-6 font-hindi text-lg leading-relaxed">
-            शर्मा एवं गुप्ता परिवार आपके एवं आपके परिवार को
+            दोनों परिवार आपको एवं आपके समस्त परिवार को
             <br />
             परम स्नेह के साथ आमंत्रित करते हैं
           </p>
           <p className="mt-8 text-base leading-relaxed opacity-80">
-            We, the Sharma &amp; Gupta families, joyfully invite you and your
-            family to grace the auspicious wedding of our beloved children
+            With the blessings of our elders, our families warmly invite you
+            and your entire family to celebrate the auspicious wedding of
           </p>
           <p className="gold-text mt-8 font-display text-5xl md:text-6xl">
-            Aarav weds Diya
+            Hrishikesh weds Nandita
           </p>
-          <p className="mt-4 font-hindi text-xl">आरव एवं दिया का शुभ विवाह</p>
+          <p className="mt-4 font-hindi text-xl">ऋषिकेश एवं नंदिता का शुभ विवाह</p>
           <GoldDivider className="mt-10 opacity-70" />
           <p className="mt-8 font-display text-2xl">
-            12 &amp; 13 December 2026
+            1 &amp; 2 December 2026
           </p>
           <p className="mt-2 text-sm uppercase tracking-[0.3em] opacity-70">
-            The Royal Palms Palace · Goa
+            La Cabana Beach &amp; Spa · Goa
           </p>
           <p className="mt-8 font-hindi text-lg leading-relaxed opacity-90">
             आपकी उपस्थिति ही हमारी सबसे बड़ी शोभा है
@@ -61,30 +61,30 @@ const STORY = [
   {
     hindi: "पहली मुलाकात",
     title: "The First Hello",
-    text: "A family wedding in Hyderabad, one crowded table — and a conversation that simply refused to end.",
+    text: "Every story begins somewhere. The details of ours will be shared here soon.",
   },
   {
     hindi: "सफ़र",
     title: "The Journey",
-    text: "Different cities, long calls, endless chai. Somewhere between it all, friendship quietly became love.",
+    text: "Two paths became one journey, with our families and their blessings beside us.",
   },
   {
     hindi: "हाँ!",
     title: "The Yes",
-    text: "One nervous question, one happy yes — and now two families, one celebration, and you.",
+    text: "And now, a new beginning — made brighter by celebrating it with you.",
   },
 ];
 
 export function CoupleStory() {
   return (
-    <section id="story" className="px-6 py-24 md:py-32">
+    <section id="story" className="px-6 py-16 md:py-28">
       <SectionHeading hindi="हमारी कहानी" english="Our Little Story" />
-      <div className="mx-auto mt-14 grid max-w-5xl items-center gap-12 md:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-5xl items-center gap-9 md:mt-14 md:grid-cols-2 md:gap-12">
         <Reveal>
           <div className="gold-frame overflow-hidden rounded-sm">
             <img
               src={coupleArt}
-              alt="Mughal-style painting of the couple under a marigold mandap"
+              alt="Illustration of a couple under a marigold mandap, not a portrait of Hrishikesh and Nandita"
               width={1200}
               height={1200}
               loading="lazy"
@@ -92,7 +92,7 @@ export function CoupleStory() {
             />
           </div>
         </Reveal>
-        <ol className="relative space-y-12 border-l border-primary/30 pl-8">
+        <ol className="relative space-y-9 border-l border-primary/30 pl-8 md:space-y-12">
           {STORY.map((beat, i) => (
             <li key={beat.title} className="relative">
               <span className="absolute -left-[41px] top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-primary/60 bg-background">
@@ -122,76 +122,36 @@ type WeddingEvent = {
   name: string;
   hindi: string;
   time: string;
-  venue: string;
-  dress: string;
+  description: string;
 };
 
-// PLACEHOLDER dates, times, venues and dress codes — easy to edit.
+// Names and timings follow the family's supplied December 2026 itinerary.
 const EVENTS: WeddingEvent[] = [
-  {
-    day: 1,
-    name: "Haldi",
-    hindi: "हल्दी",
-    time: "10:00 AM onwards",
-    venue: "Palace Lawn",
-    dress: "Shades of yellow",
-  },
-  {
-    day: 1,
-    name: "Mehndi",
-    hindi: "मेहंदी",
-    time: "3:00 PM onwards",
-    venue: "Garden Pavilion",
-    dress: "Bright & colourful",
-  },
-  {
-    day: 1,
-    name: "Sangeet",
-    hindi: "संगीत",
-    time: "7:30 PM onwards",
-    venue: "Grand Ballroom",
-    dress: "Jewel tones & glam",
-  },
-  {
-    day: 2,
-    name: "Baraat & Pheras",
-    hindi: "विवाह",
-    time: "10:30 AM onwards",
-    venue: "Seaside Mandap",
-    dress: "Traditional red & gold",
-  },
-  {
-    day: 2,
-    name: "Reception",
-    hindi: "स्वागत समारोह",
-    time: "7:00 PM onwards",
-    venue: "Palace Courtyard",
-    dress: "Regal formal",
-  },
-  {
-    day: 2,
-    name: "Farewell Dinner",
-    hindi: "विदाई भोज",
-    time: "10:30 PM onwards",
-    venue: "Ocean Deck",
-    dress: "Comfortable chic",
-  },
+  { day: 1, name: "Vinayak", hindi: "श्री गणेश पूजन", time: "11:00 AM", description: "Blessings to begin our journey with love and positivity." },
+  { day: 1, name: "Maayra", hindi: "मायरा", time: "2:00–5:00 PM", description: "A celebration of love, gifts and togetherness." },
+  { day: 1, name: "Sangeet", hindi: "संगीत", time: "6:30–10:00 PM", description: "An evening of music, dance and unforgettable performances." },
+  { day: 1, name: "After Party", hindi: "उत्सव", time: "10:00 PM onwards", description: "Let the music keep you alive!" },
+  { day: 2, name: "Boho Carnival", hindi: "उत्सव", time: "9:00 AM–12:00 PM", description: "Fun games, boho vibes and a perfect start to the day!" },
+  { day: 2, name: "Safa Bandhai", hindi: "साफ़ा बंधाई", time: "2:00–3:00 PM", description: "A royal touch to our celebrations." },
+  { day: 2, name: "Baaraat", hindi: "बारात", time: "3:00–5:00 PM", description: "Let the celebration ride in with joy and energy!" },
+  { day: 2, name: "Jaimala", hindi: "जयमाला", time: "5:50 PM", description: "Two hearts, one promise for a lifetime." },
+  { day: 2, name: "Shaadi & Dinner", hindi: "विवाह एवं रात्रिभोज", time: "6:40–11:00 PM", description: "Promises, blessings and a celebration to remember forever." },
 ];
 
 export function Events() {
   return (
-    <section id="events" className="relative px-6 py-24 md:py-32">
+    <section id="events" className="relative px-6 py-16 md:py-28">
       <div className="absolute inset-0 bg-secondary/30" />
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
-          hindi="दो दिन, छह उत्सव"
+          hindi="दो दिन, नौ उत्सव"
           english="Two Days of Celebration"
-          sub="Day 1 · Friday 12 December — Day 2 · Saturday 13 December"
+          sub="1 December · Day 1 — 2 December · Day 2"
         />
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
           {EVENTS.map((event, i) => (
             <Reveal key={event.name} delay={(i % 3) * 0.12}>
-              <article className="gold-frame flex h-full flex-col rounded-sm bg-card/80 p-7">
+              <article className="gold-frame flex h-full flex-col rounded-sm bg-card p-6 md:p-7">
                 <span className="w-fit rounded-full border border-primary/40 px-3 py-1 text-xs uppercase tracking-[0.2em] text-primary">
                   Day {event.day} · दिन {event.day === 1 ? "१" : "२"}
                 </span>
@@ -223,7 +183,7 @@ export function Events() {
           ))}
         </div>
         <p className="mt-8 text-center text-xs tracking-wide text-muted-foreground">
-          Timings &amp; venues are placeholders — final details will be shared
+          Dates, timings &amp; function spaces are placeholders — final details will be shared
           soon.
         </p>
       </div>
@@ -245,34 +205,34 @@ const TRAVEL = [
   {
     hindi: "पिकअप",
     title: "Taxis & Pickups",
-    text: "We're arranging group pickups and drops from the airport and railway station. Share your travel plans in the RSVP below and we'll coordinate your ride.",
-    chip: "Share your arrival in RSVP",
+    text: "Pickup and drop-off details from the airport and railway station will be confirmed with the family as travel plans take shape.",
+    chip: "Coordination details to follow",
   },
   {
     hindi: "ठहराव",
     title: "Where to Stay",
-    text: "Rooms are blocked for our guests at the palace resort. Booking details and codes will follow shortly.",
+    text: "Stay and booking details at or near La Cabana Beach & Spa will be shared once arrangements are confirmed.",
     chip: "Details to follow",
   },
 ];
 
 export function Travel() {
   return (
-    <section id="travel" className="px-6 py-24 md:py-32">
+    <section id="travel" className="px-6 py-16 md:py-28">
       <SectionHeading
         hindi="हैदराबाद से गोवा"
         english="Travel & Stay"
-        sub="Most of us are travelling from Hyderabad — let's get there together."
+        sub="Travelling from Hyderabad? We look forward to welcoming you in Goa."
       />
-      <div className="mx-auto mt-14 grid max-w-6xl items-center gap-12 md:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-6xl items-center gap-10 md:mt-14 md:grid-cols-2">
         <Reveal className="order-2 md:order-1">
           <div className="space-y-6">
             {TRAVEL.map((card, i) => (
               <Reveal key={card.title} delay={i * 0.12}>
-                <article className="gold-frame rounded-sm bg-card/80 p-6">
+                 <article className="gold-frame rounded-sm bg-card p-6">
                   <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="font-display text-2xl">{card.title}</h3>
-                    <span className="font-hindi text-primary">{card.hindi}</span>
+                    <h3 className="min-w-0 font-display text-2xl">{card.title}</h3>
+                    <span className="shrink-0 font-hindi text-primary">{card.hindi}</span>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {card.text}
@@ -289,7 +249,7 @@ export function Travel() {
           <div className="gold-frame overflow-hidden rounded-sm">
             <img
               src={venueArt}
-              alt="The beachside palace resort in Goa at sunset"
+              alt="Illustrative beachside venue artwork, not a photograph of La Cabana"
               width={1280}
               height={1024}
               loading="lazy"
@@ -297,10 +257,28 @@ export function Travel() {
             />
           </div>
           <p className="mt-3 text-center text-xs tracking-wide text-muted-foreground">
-            The Royal Palms Palace, Goa · placeholder venue art
+             Illustration only · venue photographs to follow
           </p>
         </Reveal>
       </div>
+      <Reveal className="mx-auto mt-12 max-w-6xl md:mt-16">
+        <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-center md:gap-10">
+          <div>
+            <p className="font-hindi text-primary">उत्सव स्थल</p>
+            <h3 className="mt-1 font-display text-3xl md:text-4xl">La Cabana Beach &amp; Spa</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Goa, India · the location for our celebrations</p>
+            <a href="https://maps.app.goo.gl/jRkJVZuf5HE1KmC69" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center border-b border-primary font-display text-lg text-primary hover:text-foreground">Open directions ↗</a>
+          </div>
+          <iframe
+            title="La Cabana Beach & Spa location in Goa"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3842.040107578203!2d73.71780637539793!3d15.642852550710758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfeec8c9230e3f%3A0x9f2ddb1c1db5d407!2sLa%20Cabana%20Beach%20%26%20Spa!5e0!3m2!1sen!2sus!4v1790556698789!5m2!1sen!2sus"
+            className="aspect-[4/3] w-full border border-border md:aspect-[16/10]"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
+      </Reveal>
     </section>
   );
 }
@@ -311,7 +289,7 @@ export function Travel() {
 
 export function Footer() {
   return (
-    <footer className="px-6 pb-28 pt-16 text-center">
+     <footer className="px-6 pb-24 pt-12 text-center md:pt-16">
       <GoldDivider />
       <div className="mx-auto mt-10 flex h-20 w-20 items-center justify-center rounded-full border border-primary/60">
         <span className="gold-text font-display text-3xl">A·D</span>
@@ -319,7 +297,7 @@ export function Footer() {
       <p className="mt-6 text-sm text-muted-foreground">
         With love &amp; blessings · स्नेह सहित
       </p>
-      <p className="font-hindi mt-1 text-lg">शर्मा एवं गुप्ता परिवार</p>
+      <p className="font-hindi mt-1 text-lg">ऋषिकेश एवं नंदिता के परिवार</p>
       <p className="mt-6 text-xs tracking-wide text-muted-foreground">
         Questions? WhatsApp us · +91 XXXXX XXXXX (placeholder)
       </p>

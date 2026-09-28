@@ -15,27 +15,27 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-[min(740px,90svh)] items-center justify-center overflow-hidden py-12 md:min-h-[min(850px,88svh)]"
     >
       <motion.div style={{ y }} className="absolute inset-0">
         <img
           src={heroArt}
           alt="A royal palace by the sea at dusk, framed in gold filigree with peacocks"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-[56%_center]"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/25 to-background" />
+        <div className="hero-shade absolute inset-0" />
       </motion.div>
 
       <motion.div
         style={{ opacity: fade }}
-        className="relative z-10 px-6 text-center"
+        className="relative z-10 w-full max-w-3xl px-7 pb-8 text-center"
       >
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="font-hindi text-lg tracking-[0.35em] text-primary"
+          className="hero-gold font-hindi text-base md:text-lg"
         >
           ॥ शुभ विवाह ॥
         </motion.p>
@@ -44,31 +44,31 @@ export default function Hero() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="gold-text animate-shimmer mt-6 font-display text-7xl leading-none md:text-9xl"
+          className="hero-heading mt-5 font-display text-[clamp(3.5rem,14vw,5rem)] leading-[0.9] md:text-8xl"
         >
-          Aarav &amp; Diya
+          Hrishikesh &amp; Nandita
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="mt-5 font-hindi text-2xl text-foreground/90 md:text-3xl"
+          className="hero-ink mt-5 font-hindi text-xl md:text-3xl"
         >
-          आरव एवं दिया
+          ऋषिकेश एवं नंदिता
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 1 }}
-          className="mt-8 space-y-3"
+          className="mt-7 space-y-3"
         >
-          <p className="font-display text-2xl tracking-wide text-foreground md:text-3xl">
-            12 &amp; 13 December 2026
+          <p className="hero-ink font-display text-2xl md:text-3xl">
+            1 &amp; 2 December 2026
           </p>
-          <p className="text-sm uppercase tracking-[0.45em] text-primary">
-            Goa · India
+          <p className="hero-gold text-xs uppercase tracking-widest md:text-sm">
+            La Cabana Beach &amp; Spa · Goa
           </p>
         </motion.div>
 
@@ -76,15 +76,15 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 1 }}
-          className="mt-10"
+          className="mt-9"
         >
           <a
             href="#rsvp"
-            className="inline-block rounded-sm border border-primary/60 bg-primary/10 px-10 py-3.5 font-display text-xl tracking-widest text-primary transition hover:bg-primary/25"
+            className="inline-flex min-h-12 items-center justify-center rounded-sm border border-primary/60 bg-background px-10 py-2 font-display text-xl text-foreground shadow-sm transition hover:bg-card"
           >
             RSVP
           </a>
-          <p className="mt-4 font-hindi text-sm text-muted-foreground">
+          <p className="hero-ink mt-4 font-hindi text-sm">
             आपका स्वागत है
           </p>
         </motion.div>
@@ -94,7 +94,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-primary"
+        className="hero-gold absolute bottom-5 left-1/2 z-10 -translate-x-1/2"
       >
         <ChevronDown className="h-6 w-6 animate-bounce" />
       </motion.div>
