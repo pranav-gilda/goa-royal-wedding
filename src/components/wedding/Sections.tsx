@@ -245,13 +245,13 @@ const TRAVEL = [
   {
     hindi: "पिकअप",
     title: "Taxis & Pickups",
-    text: "We're arranging group pickups and drops from the airport and railway station. Share your travel plans in the RSVP below and we'll coordinate your ride.",
-    chip: "Share your arrival in RSVP",
+    text: "Pickup and drop-off details from the airport and railway station will be confirmed with the family as travel plans take shape.",
+    chip: "Coordination details to follow",
   },
   {
     hindi: "ठहराव",
     title: "Where to Stay",
-    text: "Rooms are blocked for our guests at the palace resort. Booking details and codes will follow shortly.",
+    text: "Stay and booking details at or near La Cabana Beach & Spa will be shared once arrangements are confirmed.",
     chip: "Details to follow",
   },
 ];
