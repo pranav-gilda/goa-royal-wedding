@@ -30,6 +30,8 @@ type SubmitPayload = {
   message: string;
 };
 
+type FormErrors = Partial<Record<"name" | "email" | "phone" | "attending", string>>;
+
 export default function RsvpSection() {
   const submitFn = useServerFn(submitRsvp);
 
@@ -40,7 +42,7 @@ export default function RsvpSection() {
   const [attending, setAttending] = useState<"yes" | "no" | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const mutation = useMutation({
     mutationFn: (payload: SubmitPayload) => submitFn({ data: payload }),
@@ -56,7 +58,7 @@ export default function RsvpSection() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const errs: Record<string, string> = {};
+    const errs: FormErrors = {};
     if (name.trim().length < 2) errs.name = "Please add your name(s)";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
       errs.email = "Please add a valid email";
@@ -64,7 +66,7 @@ export default function RsvpSection() {
       errs.phone = "Please add a valid phone number";
     if (!attending) errs.attending = "Please let us know if you can join";
     setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+    if (!attending || Object.keys(errs).length > 0) return;
 
     mutation.mutate({
       name: name.trim(),
