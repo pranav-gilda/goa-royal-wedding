@@ -122,60 +122,20 @@ type WeddingEvent = {
   name: string;
   hindi: string;
   time: string;
-  venue: string;
-  dress: string;
+  description: string;
 };
 
-// PLACEHOLDER dates, times, venues and dress codes — easy to edit.
+// Names and timings follow the family's supplied December 2026 itinerary.
 const EVENTS: WeddingEvent[] = [
-  {
-    day: 1,
-    name: "Haldi",
-    hindi: "हल्दी",
-    time: "10:00 AM onwards",
-    venue: "Palace Lawn",
-    dress: "Shades of yellow",
-  },
-  {
-    day: 1,
-    name: "Mehndi",
-    hindi: "मेहंदी",
-    time: "3:00 PM onwards",
-    venue: "Garden Pavilion",
-    dress: "Bright & colourful",
-  },
-  {
-    day: 1,
-    name: "Sangeet",
-    hindi: "संगीत",
-    time: "7:30 PM onwards",
-    venue: "Grand Ballroom",
-    dress: "Jewel tones & glam",
-  },
-  {
-    day: 2,
-    name: "Baraat & Pheras",
-    hindi: "विवाह",
-    time: "10:30 AM onwards",
-    venue: "Seaside Mandap",
-    dress: "Traditional red & gold",
-  },
-  {
-    day: 2,
-    name: "Reception",
-    hindi: "स्वागत समारोह",
-    time: "7:00 PM onwards",
-    venue: "Palace Courtyard",
-    dress: "Regal formal",
-  },
-  {
-    day: 2,
-    name: "Farewell Dinner",
-    hindi: "विदाई भोज",
-    time: "10:30 PM onwards",
-    venue: "Ocean Deck",
-    dress: "Comfortable chic",
-  },
+  { day: 1, name: "Vinayak", hindi: "श्री गणेश पूजन", time: "11:00 AM", description: "Blessings to begin our journey with love and positivity." },
+  { day: 1, name: "Maayra", hindi: "मायरा", time: "2:00–5:00 PM", description: "A celebration of love, gifts and togetherness." },
+  { day: 1, name: "Sangeet", hindi: "संगीत", time: "6:30–10:00 PM", description: "An evening of music, dance and unforgettable performances." },
+  { day: 1, name: "After Party", hindi: "उत्सव", time: "10:00 PM onwards", description: "Let the music keep you alive!" },
+  { day: 2, name: "Boho Carnival", hindi: "उत्सव", time: "9:00 AM–12:00 PM", description: "Fun games, boho vibes and a perfect start to the day!" },
+  { day: 2, name: "Safa Bandhai", hindi: "साफ़ा बंधाई", time: "2:00–3:00 PM", description: "A royal touch to our celebrations." },
+  { day: 2, name: "Baaraat", hindi: "बारात", time: "3:00–5:00 PM", description: "Let the celebration ride in with joy and energy!" },
+  { day: 2, name: "Jaimala", hindi: "जयमाला", time: "5:50 PM", description: "Two hearts, one promise for a lifetime." },
+  { day: 2, name: "Shaadi & Dinner", hindi: "विवाह एवं रात्रिभोज", time: "6:40–11:00 PM", description: "Promises, blessings and a celebration to remember forever." },
 ];
 
 export function Events() {
@@ -184,9 +144,9 @@ export function Events() {
       <div className="absolute inset-0 bg-secondary/30" />
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
-          hindi="दो दिन, छह उत्सव"
+          hindi="दो दिन, नौ उत्सव"
           english="Two Days of Celebration"
-          sub="Day 1 & Day 2 · dates and timings to follow"
+          sub="1 December · Day 1 — 2 December · Day 2"
         />
         <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
           {EVENTS.map((event, i) => (
@@ -262,7 +222,7 @@ export function Travel() {
       <SectionHeading
         hindi="हैदराबाद से गोवा"
         english="Travel & Stay"
-        sub="Most of us are travelling from Hyderabad — let's get there together."
+        sub="Travelling from Hyderabad? We look forward to welcoming you in Goa."
       />
       <div className="mx-auto mt-10 grid max-w-6xl items-center gap-10 md:mt-14 md:grid-cols-2">
         <Reveal className="order-2 md:order-1">
@@ -337,7 +297,7 @@ export function Footer() {
       <p className="mt-6 text-sm text-muted-foreground">
         With love &amp; blessings · स्नेह सहित
       </p>
-      <p className="font-hindi mt-1 text-lg">शर्मा एवं गुप्ता परिवार</p>
+      <p className="font-hindi mt-1 text-lg">ऋषिकेश एवं नंदिता के परिवार</p>
       <p className="mt-6 text-xs tracking-wide text-muted-foreground">
         Questions? WhatsApp us · +91 XXXXX XXXXX (placeholder)
       </p>

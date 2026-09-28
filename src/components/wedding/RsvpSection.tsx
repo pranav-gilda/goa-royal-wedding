@@ -7,12 +7,15 @@ import { Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EVENT_OPTIONS = [
-  "Haldi · हल्दी",
-  "Mehndi · मेहंदी",
+  "Vinayak · श्री गणेश पूजन",
+  "Maayra · मायरा",
   "Sangeet · संगीत",
-  "Baraat & Pheras · विवाह",
-  "Reception · स्वागत समारोह",
-  "Farewell Dinner · विदाई",
+  "After Party",
+  "Boho Carnival",
+  "Safa Bandhai · साफ़ा बंधाई",
+  "Baaraat · बारात",
+  "Jaimala · जयमाला",
+  "Shaadi & Dinner · विवाह एवं रात्रिभोज",
 ];
 
 const inputClass =

@@ -14,21 +14,21 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-         title: "Aarav & Diya — Wedding Invitation at La Cabana, Goa",
+         title: "Hrishikesh & Nandita — Wedding Invitation at La Cabana, Goa",
       },
       {
         name: "description",
         content:
-           "शुभ विवाह — the Sharma & Gupta families invite you to two days of celebrations at La Cabana Beach & Spa, Goa. RSVP here.",
+           "शुभ विवाह — the families of Hrishikesh & Nandita invite you to celebrations on 1–2 December 2026 at La Cabana Beach & Spa, Goa. RSVP here.",
       },
       {
         property: "og:title",
-        content: "Aarav & Diya — A Royal Wedding in Goa",
+        content: "Hrishikesh & Nandita — A Royal Wedding in Goa",
       },
       {
         property: "og:description",
         content:
-          "Two days, six celebrations, one royal Goan wedding. RSVP for your family here.",
+          "Two days, nine celebrations, one royal Goan wedding. RSVP for your family here.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
