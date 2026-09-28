@@ -114,7 +114,7 @@ export function CoupleStory() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Events — 2 days, 6 functions, dress codes                           */
+/* Events — 2 days, 9 functions from the supplied itinerary             */
 /* ------------------------------------------------------------------ */
 
 type WeddingEvent = {
@@ -159,32 +159,14 @@ export function Events() {
                 <p className="mt-1 font-hindi text-lg text-primary">
                   {event.hindi}
                 </p>
-                <dl className="mt-5 space-y-2 text-sm text-muted-foreground">
-                  <div className="flex gap-2">
-                    <dt className="w-16 shrink-0 uppercase tracking-wider">
-                      Time
-                    </dt>
-                    <dd>{event.time}</dd>
-                  </div>
-                  <div className="flex gap-2">
-                    <dt className="w-16 shrink-0 uppercase tracking-wider">
-                      Where
-                    </dt>
-                    <dd>{event.venue}</dd>
-                  </div>
-                </dl>
-                <p className="mt-auto pt-6">
-                  <span className="inline-block rounded-full bg-primary/15 px-4 py-1.5 text-xs tracking-wide text-primary">
-                    Dress code · {event.dress}
-                  </span>
-                </p>
+                <p className="mt-5 font-display text-xl text-primary">{event.time}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{event.description}</p>
               </article>
             </Reveal>
           ))}
         </div>
         <p className="mt-8 text-center text-xs tracking-wide text-muted-foreground">
-          Dates, timings &amp; function spaces are placeholders — final details will be shared
-          soon.
+          All events at La Cabana Beach &amp; Spa, Goa. Dress codes and exact function spaces to follow.
         </p>
       </div>
     </section>
