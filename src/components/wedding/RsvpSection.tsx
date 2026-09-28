@@ -194,7 +194,7 @@ export default function RsvpSection() {
                     type="button"
                     onClick={() => setAttending("yes")}
                      variant="outline"
-                     className={`h-auto min-h-16 w-full whitespace-normal rounded-sm px-4 py-3 font-body transition ${
+                     className={`h-auto min-h-16 w-full flex-col whitespace-normal rounded-sm px-4 py-3 font-body leading-snug transition ${
                       attending === "yes"
                         ? "border-primary bg-primary/20 text-primary"
                         : "border-border text-foreground hover:border-primary/50"
@@ -209,7 +209,7 @@ export default function RsvpSection() {
                     type="button"
                     onClick={() => setAttending("no")}
                      variant="outline"
-                     className={`h-auto min-h-16 w-full whitespace-normal rounded-sm px-4 py-3 font-body transition ${
+                     className={`h-auto min-h-16 w-full flex-col whitespace-normal rounded-sm px-4 py-3 font-body leading-snug transition ${
                       attending === "no"
                         ? "border-primary bg-primary/20 text-primary"
                         : "border-border text-foreground hover:border-primary/50"

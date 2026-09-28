@@ -36,7 +36,7 @@ export function Invite() {
           <p className="mt-4 font-hindi text-xl">आरव एवं दिया का शुभ विवाह</p>
           <GoldDivider className="mt-10 opacity-70" />
           <p className="mt-8 font-display text-2xl">
-            12 &amp; 13 December 2026
+            Two days of celebrations · dates to follow
           </p>
           <p className="mt-2 text-sm uppercase tracking-[0.3em] opacity-70">
             La Cabana Beach &amp; Spa · Goa
@@ -186,7 +186,7 @@ export function Events() {
         <SectionHeading
           hindi="दो दिन, छह उत्सव"
           english="Two Days of Celebration"
-          sub="Day 1 · 12 December — Day 2 · 13 December · dates to confirm"
+          sub="Day 1 & Day 2 · dates and timings to follow"
         />
         <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-2 lg:grid-cols-3">
           {EVENTS.map((event, i) => (

@@ -65,7 +65,7 @@ export default function Hero() {
           className="mt-7 space-y-3"
         >
           <p className="hero-ink font-display text-2xl md:text-3xl">
-            12 &amp; 13 December 2026
+            Two days in Goa · dates to follow
           </p>
           <p className="hero-gold text-xs uppercase tracking-widest md:text-sm">
             La Cabana Beach &amp; Spa · Goa

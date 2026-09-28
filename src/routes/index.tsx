@@ -14,12 +14,12 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Aarav & Diya — A Royal Wedding in Goa · 12–13 December 2026",
+         title: "Aarav & Diya — Wedding Invitation at La Cabana, Goa",
       },
       {
         name: "description",
         content:
-          "शुभ विवाह — the Sharma & Gupta families invite you to two days of royal celebrations in Goa: Haldi, Mehndi, Sangeet, Wedding & Reception. RSVP here.",
+           "शुभ विवाह — the Sharma & Gupta families invite you to two days of celebrations at La Cabana Beach & Spa, Goa. RSVP here.",
       },
       {
         property: "og:title",

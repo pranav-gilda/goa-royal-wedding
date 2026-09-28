@@ -169,8 +169,8 @@
 /* The opening artwork keeps its own high-contrast ink over the photograph. */
 .hero-ink { color: var(--hero-foreground); }
 .hero-gold { color: var(--hero-gold); }
-.hero-shade { background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 52%, transparent), color-mix(in oklch, var(--foreground) 34%, transparent) 32%, color-mix(in oklch, var(--foreground) 76%, transparent)); }
-.hero-heading { color: var(--hero-foreground); text-shadow: 0 2px 24px color-mix(in oklch, var(--foreground) 70%, transparent); }
+.hero-shade { background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 68%, transparent), color-mix(in oklch, var(--foreground) 57%, transparent) 42%, color-mix(in oklch, var(--foreground) 84%, transparent)); }
+.hero-heading { color: var(--hero-foreground); text-shadow: 0 2px 24px color-mix(in oklch, var(--foreground) 85%, transparent); }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-shimmer, .animate-float-soft { animation: none; }
