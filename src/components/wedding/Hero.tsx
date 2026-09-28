@@ -80,7 +80,7 @@ export default function Hero() {
         >
           <a
             href="#rsvp"
-            className="hero-ink inline-flex min-h-12 items-center justify-center rounded-sm border border-current px-10 py-2 font-display text-xl transition hover:bg-foreground/20"
+            className="inline-flex min-h-12 items-center justify-center rounded-sm border border-primary/60 bg-background px-10 py-2 font-display text-xl text-foreground shadow-sm transition hover:bg-card"
           >
             RSVP
           </a>
