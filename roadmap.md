@@ -5,3 +5,7 @@
 - [ ] Incorporate Hrishikesh and Nandita and the nine events from the uploaded itinerary.
 - [x] Verify the phone layout and venue link in the browser.
 - [ ] Replace placeholder background music with the uploaded song.
+- [ ] Add resort photos, wedding tagline, contacts, and confirmed travel/check-in details.
+- [ ] Replace the old RSVP with family, arrival/departure, and private document fields.
+- [ ] Connect and verify the family RSVP spreadsheet end to end.
+- [ ] Check the updated invitation on a narrow phone screen.
