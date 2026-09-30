@@ -1,6 +1,7 @@
 import { Reveal, SectionHeading, GoldDivider } from "./decor";
 import coupleArt from "@/assets/couple-art.png";
-import venueArt from "@/assets/venue-art.png";
+import resortGardens from "@/assets/resort-gardens.webp.asset.json";
+import resortSeafront from "@/assets/resort-seafront.webp.asset.json";
 
 /* ------------------------------------------------------------------ */
 /* Family invitation (orthodox tone, Hindi + English)                  */
@@ -39,7 +40,7 @@ export function Invite() {
             1 &amp; 2 December 2026
           </p>
           <p className="mt-2 text-sm uppercase tracking-[0.3em] opacity-70">
-            La Cabana Beach &amp; Spa · Goa
+            La Cabana Beach Resort · Ashvem Beach, North Goa
           </p>
           <p className="mt-8 font-hindi text-lg leading-relaxed opacity-90">
             आपकी उपस्थिति ही हमारी सबसे बड़ी शोभा है
@@ -177,82 +178,49 @@ export function Events() {
 /* Travel & stay — Hyderabad → Goa                                     */
 /* ------------------------------------------------------------------ */
 
-const TRAVEL = [
-  {
-    hindi: "यात्रा",
-    title: "Getting to Goa",
-    text: "Direct flights from Hyderabad reach Goa in about 1 hr 20 min. Recommended flights and train options will be shared here soon.",
-    chip: "Timings to follow",
-  },
-  {
-    hindi: "पिकअप",
-    title: "Taxis & Pickups",
-    text: "Pickup and drop-off details from the airport and railway station will be confirmed with the family as travel plans take shape.",
-    chip: "Coordination details to follow",
-  },
-  {
-    hindi: "ठहराव",
-    title: "Where to Stay",
-    text: "Stay and booking details at or near La Cabana Beach & Spa will be shared once arrangements are confirmed.",
-    chip: "Details to follow",
-  },
-];
-
 export function Travel() {
   return (
     <section id="travel" className="px-6 py-16 md:py-28">
       <SectionHeading
         hindi="हैदराबाद से गोवा"
         english="Travel & Stay"
-        sub="Travelling from Hyderabad? We look forward to welcoming you in Goa."
+        sub="We look forward to welcoming you to Ashvem Beach, Mandrem, North Goa."
       />
       <div className="mx-auto mt-10 grid max-w-6xl items-center gap-10 md:mt-14 md:grid-cols-2">
         <Reveal className="order-2 md:order-1">
-          <div className="space-y-6">
-            {TRAVEL.map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.12}>
-                 <article className="gold-frame rounded-sm bg-card p-6">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="min-w-0 font-display text-2xl">{card.title}</h3>
-                    <span className="shrink-0 font-hindi text-primary">{card.hindi}</span>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {card.text}
-                  </p>
-                  <span className="mt-4 inline-block rounded-full border border-primary/40 px-3 py-1 text-xs tracking-wide text-primary">
-                    {card.chip}
-                  </span>
-                </article>
-              </Reveal>
-            ))}
+          <div className="space-y-8 border-y border-border py-8">
+            <div><p className="font-hindi text-primary">आगमन एवं प्रस्थान</p><h3 className="mt-1 font-display text-3xl">Your stay in Goa</h3></div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div><p className="text-xs uppercase text-primary">Check in</p><p className="mt-2 font-display text-2xl">1 December 2026</p><p className="text-muted-foreground">10:00 AM</p></div>
+              <div><p className="text-xs uppercase text-primary">Check out</p><p className="mt-2 font-display text-2xl">3 December 2026</p><p className="text-muted-foreground">10:00 AM</p></div>
+            </div>
+            <div className="border-t border-border pt-6"><p className="text-xs uppercase text-primary">Airport transfers</p><p className="mt-2 leading-relaxed">Transportation is available only from Goa’s Manohar International Airport (GOX).</p><p className="mt-2 text-sm text-muted-foreground">Please share your arrival and departure details in your RSVP so the family can coordinate.</p></div>
           </div>
         </Reveal>
         <Reveal delay={0.2} className="order-1 md:order-2">
-          <div className="gold-frame overflow-hidden rounded-sm">
+          <div className="overflow-hidden rounded-sm">
             <img
-              src={venueArt}
-              alt="Illustrative beachside venue artwork, not a photograph of La Cabana"
-              width={1280}
-              height={1024}
+              src={resortGardens.url}
+              alt="Palm-lined walkway and cottages at La Cabana Beach Resort"
+              width={860}
+              height={483}
               loading="lazy"
-              className="h-full w-full object-cover"
+              className="aspect-[16/10] w-full object-cover"
             />
           </div>
-          <p className="mt-3 text-center text-xs tracking-wide text-muted-foreground">
-             Illustration only · venue photographs to follow
-          </p>
+          <img src={resortSeafront.url} alt="La Cabana Beach Resort's seaside pool at dusk" width={500} height={333} loading="lazy" className="mt-3 aspect-[16/10] w-full rounded-sm object-cover" />
         </Reveal>
       </div>
       <Reveal className="mx-auto mt-12 max-w-6xl md:mt-16">
         <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:items-center md:gap-10">
           <div>
             <p className="font-hindi text-primary">उत्सव स्थल</p>
-            <h3 className="mt-1 font-display text-3xl md:text-4xl">La Cabana Beach &amp; Spa</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Goa, India · the location for our celebrations</p>
+            <h3 className="mt-1 font-display text-3xl md:text-4xl">La Cabana Beach Resort</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Ashvem Beach, Mandrem · North Goa</p>
             <a href="https://maps.app.goo.gl/jRkJVZuf5HE1KmC69" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center border-b border-primary font-display text-lg text-primary hover:text-foreground">Open directions ↗</a>
           </div>
           <iframe
-            title="La Cabana Beach & Spa location in Goa"
+             title="La Cabana Beach Resort location in Goa"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3842.040107578203!2d73.71780637539793!3d15.642852550710758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbfeec8c9230e3f%3A0x9f2ddb1c1db5d407!2sLa%20Cabana%20Beach%20%26%20Spa!5e0!3m2!1sen!2sus!4v1790556698789!5m2!1sen!2sus"
             className="aspect-[4/3] w-full border border-border md:aspect-[16/10]"
             loading="lazy"
@@ -274,15 +242,20 @@ export function Footer() {
      <footer className="px-6 pb-24 pt-12 text-center md:pt-16">
       <GoldDivider />
       <div className="mx-auto mt-10 flex h-20 w-20 items-center justify-center rounded-full border border-primary/60">
-        <span className="gold-text font-display text-3xl">A·D</span>
+         <span className="font-display text-3xl text-primary">H·N</span>
       </div>
       <p className="mt-6 text-sm text-muted-foreground">
         With love &amp; blessings · स्नेह सहित
       </p>
       <p className="font-hindi mt-1 text-lg">ऋषिकेश एवं नंदिता के परिवार</p>
-      <p className="mt-6 text-xs tracking-wide text-muted-foreground">
-        Questions? WhatsApp us · +91 XXXXX XXXXX (placeholder)
-      </p>
+       <p className="mt-5 font-display text-2xl italic text-primary">Hriday Se Nata · हृदय से नाता</p>
+       <a className="mt-4 inline-block border-b border-primary pb-1 text-sm text-primary" href="https://www.instagram.com/hridaysenata_?stkn=OWh4azlvd3E2dXNr" target="_blank" rel="noopener noreferrer">Follow our moments on Instagram ↗</a>
+       <p className="mt-8 text-sm text-muted-foreground">For travel and wedding queries</p>
+       <div className="mt-3 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+         <a href="tel:+919030023501">Mahesh · 9030023501</a>
+         <a href="tel:+918790063653">Aditya · 8790063653</a>
+         <a href="tel:+919032377026">Anirudh · 9032377026</a>
+       </div>
     </footer>
   );
 }

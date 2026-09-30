@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import heroArt from "@/assets/hero-art.png";
+import heroMobile from "@/assets/royal-hero-mobile.webp.asset.json";
+import heroDesktop from "@/assets/royal-hero-desktop.webp.asset.json";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -18,12 +19,15 @@ export default function Hero() {
       className="relative flex min-h-[min(740px,90svh)] items-center justify-center overflow-hidden py-12 md:min-h-[min(850px,88svh)]"
     >
       <motion.div style={{ y }} className="absolute inset-0">
-        <img
-          src={heroArt}
+        <picture>
+          <source media="(max-width: 640px)" srcSet={heroMobile.url} />
+          <img
+          src={heroDesktop.url}
           alt="A royal palace by the sea at dusk, framed in gold filigree with peacocks"
-          className="h-full w-full object-cover object-[56%_center]"
+          className="absolute inset-0 h-full w-full object-cover object-[56%_center]"
           fetchPriority="high"
-        />
+          />
+        </picture>
         <div className="hero-shade absolute inset-0" />
       </motion.div>
 
@@ -44,10 +48,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="hero-heading mt-5 font-display text-[clamp(3.5rem,14vw,5rem)] leading-[0.9] md:text-8xl"
+          className="hero-heading mx-auto mt-5 max-w-full font-display text-[3.4rem] leading-[0.96] sm:text-7xl md:text-8xl"
         >
           Hrishikesh &amp; Nandita
         </motion.h1>
+        <p className="hero-gold mt-5 font-display text-2xl italic md:text-3xl">Hriday Se Nata · हृदय से नाता</p>
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -68,7 +73,7 @@ export default function Hero() {
             1 &amp; 2 December 2026
           </p>
           <p className="hero-gold text-xs uppercase tracking-widest md:text-sm">
-            La Cabana Beach &amp; Spa · Goa
+             La Cabana Beach Resort · Ashvem Beach, North Goa
           </p>
         </motion.div>
 
