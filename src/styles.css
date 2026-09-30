@@ -111,18 +111,7 @@
 /* ---------- Royal ornament utilities ---------- */
 
 .gold-text {
-  background: linear-gradient(
-    105deg,
-    oklch(0.72 0.11 80) 0%,
-    oklch(0.93 0.12 95) 25%,
-    oklch(0.76 0.12 82) 50%,
-    oklch(0.92 0.1 90) 75%,
-    oklch(0.72 0.11 80) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--primary);
 }
 
 .animate-shimmer {
@@ -143,9 +132,8 @@
 
 /* Ivory physical invite card */
 .invite-card {
-  background:
-    radial-gradient(circle at 50% 0%, oklch(0.98 0.02 95) 0%, oklch(0.95 0.035 92) 100%);
-  color: oklch(0.32 0.05 170);
+  background: var(--card);
+  color: var(--foreground);
 }
 
 .invite-card .text-gold-dark {
