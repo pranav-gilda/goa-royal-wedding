@@ -49,12 +49,16 @@ function Choice({ active, onClick, children }: { active: boolean; onClick: () =>
   );
 }
 
+type ErrKey = "name" | "email" | "phone" | "attending" | "arrivalDate" | "departureDate" | "idFiles" | "arrivalFiles" | "departureFiles";
+type Errs = Partial<Record<ErrKey, string>>;
+
 function checkFiles(list: FileList | null): string | undefined {
-  if (!list) return;
+  if (!list) return undefined;
   if (list.length > 5) return "Up to 5 files, please";
   for (const f of Array.from(list)) {
     if (f.size > 10 * 1024 * 1024) return `${f.name} is over 10 MB`;
   }
+  return undefined;
 }
 
 export default function RsvpSection() {
@@ -62,7 +66,7 @@ export default function RsvpSection() {
   const [selected, setSelected] = useState<string[]>([]);
   const [arrivalMode, setArrivalMode] = useState("");
   const [departureMode, setDepartureMode] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errs>({});
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
   const [serverError, setServerError] = useState("");
   const [guestName, setGuestName] = useState("");
@@ -72,7 +76,7 @@ export default function RsvpSection() {
     const form = e.currentTarget;
     const fd = new FormData(form);
     const get = (k: string) => String(fd.get(k) ?? "").trim();
-    const errs: Record<string, string> = {};
+    const errs: Errs = {};
     if (get("name").length < 2) errs.name = "Please add your name";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(get("email"))) errs.email = "Please add a valid email";
     if (get("phone").replace(/\D/g, "").length < 7) errs.phone = "Please add a valid phone number";
@@ -81,7 +85,7 @@ export default function RsvpSection() {
       if (!get("arrivalDate")) errs.arrivalDate = "Please add your arrival date";
       if (!get("departureDate")) errs.departureDate = "Please add your departure date";
     }
-    for (const k of ["idFiles", "arrivalFiles", "departureFiles"]) {
+    for (const k of ["idFiles", "arrivalFiles", "departureFiles"] as const) {
       const input = form.elements.namedItem(k) as HTMLInputElement | null;
       const msg = checkFiles(input?.files ?? null);
       if (msg) errs[k] = msg;
