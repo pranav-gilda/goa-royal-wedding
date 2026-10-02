@@ -6,7 +6,7 @@
 - [x] Verify the phone layout and venue link in the browser.
 - [ ] Replace placeholder background music with the uploaded song.
 - [ ] Add resort photos, wedding tagline, contacts, and confirmed travel/check-in details.
-- [ ] Replace the old RSVP with family, arrival/departure, and private document fields.
-- [ ] Connect and verify the family RSVP spreadsheet end to end.
-- [ ] Organize guest ID, arrival, and departure uploads in Drive folders and link each guest's files in the RSVP sheet.
+- [x] Replace the old RSVP with family, arrival/departure, and private document fields.
+- [x] Connect and verify the family RSVP spreadsheet end to end.
+- [x] Organize guest ID, arrival, and departure uploads in Drive folders and link each guest's files in the RSVP sheet.
 - [ ] Check the updated invitation on a narrow phone screen.
