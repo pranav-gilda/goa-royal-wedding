@@ -23,7 +23,7 @@ const errorClass = "mt-1.5 text-xs text-destructive";
 const fileClass =
   "block w-full text-sm text-muted-foreground file:mr-3 file:min-h-11 file:rounded-sm file:border file:border-primary/50 file:bg-background file:px-4 file:text-foreground";
 
-function Field({ label, htmlFor, error, children }: { label: string; htmlFor?: string; error?: string; children: ReactNode }) {
+function Field({ label, htmlFor, error, children }: { label: string; htmlFor?: string; error?: string | undefined; children: ReactNode }) {
   return (
     <div>
       <label htmlFor={htmlFor} className={labelClass}>{label}</label>
