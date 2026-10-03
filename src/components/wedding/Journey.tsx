@@ -161,7 +161,7 @@ function DayScroller({ day }: { day: Day }) {
       {/* pan-y: the browser keeps vertical scrolling, sideways swipes come to us */}
       <div className="sticky top-0 flex h-[100svh] touch-pan-y flex-col overflow-hidden">
         {/* fixed header: which day, which event */}
-        <div className={`relative z-20 flex items-baseline justify-between px-5 pt-9 ${ink}`}>
+        <div className={`relative z-20 flex items-baseline justify-between px-5 pt-14 ${ink}`}>
           <p className="font-display text-2xl font-bold">
             Day {day.n} <span className={`ml-1 text-sm font-normal tracking-wide ${muted}`}>{day.short}</span>
           </p>
@@ -181,8 +181,8 @@ function DayScroller({ day }: { day: Day }) {
             <p className={`font-hindi text-2xl ${dark ? "text-[#f3dc8f]" : "text-primary"}`}>{day.hindi}</p>
             <h2 className={`font-display text-[clamp(5rem,26vw,9rem)] font-bold leading-[0.9] ${ink}`}>Day {day.n}</h2>
             <p className={`mt-3 text-xs uppercase tracking-[0.3em] ${muted}`}>{day.date}</p>
-            <div className="mt-8 flex items-end gap-2">
-              <Avatar who={dark ? "bride" : "groom"} mood="cheer" className="h-24 w-20" />
+            <div className="mt-6 flex items-end gap-2">
+              <Avatar who={dark ? "bride" : "groom"} mood="cheer" className="h-[min(22svh,11rem)] w-auto" />
               <Bubble line={day.line} className="mb-5" />
             </div>
             <p className={`mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.3em] ${muted}`}>

@@ -7,6 +7,7 @@ import { Avatar, type Mood } from "./Avatars";
 import { Bubble, type GuideLine } from "./Guide";
 import Petals from "./Petals";
 import { hasVoice, playVoice } from "@/lib/audio";
+import coupleThanks from "@/assets/couple-thanks.jpg";
 
 const MODES = ["Flight", "Train", "Road", "Other"] as const;
 
@@ -17,14 +18,58 @@ const errorClass = "mt-1.5 text-xs text-destructive";
 const fileClass =
   "block w-full text-sm text-muted-foreground file:mr-3 file:min-h-11 file:rounded-sm file:border file:border-primary/50 file:bg-background file:px-4 file:text-foreground";
 
-function Field({ label, htmlFor, error, children }: { label: string; htmlFor?: string; error?: string | undefined; children: ReactNode }) {
+function Star() {
   return (
-    <div>
-      <label htmlFor={htmlFor} className={labelClass}>{label}</label>
+    <>
+      <span aria-hidden="true" className="ml-0.5 text-destructive">*</span>
+      <span className="sr-only"> (required)</span>
+    </>
+  );
+}
+
+function Field({
+  label,
+  htmlFor,
+  error,
+  required = false,
+  children,
+}: {
+  label: string;
+  htmlFor?: string;
+  error?: string | undefined;
+  required?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className={error ? "[&_input]:border-destructive/70 [&_select]:border-destructive/70" : ""}>
+      <label htmlFor={htmlFor} className={labelClass}>
+        {label}
+        {required ? <Star /> : null}
+      </label>
       {children}
       {error ? <p className={errorClass}>{error}</p> : null}
     </div>
   );
+}
+
+/** What the "please fill in" list says for each field, and where tapping it jumps to. */
+const FIELD_INFO: Record<ErrKey, { label: string; id: string }> = {
+  name: { label: "Your name", id: "r-name" },
+  phone: { label: "Your mobile number", id: "r-phone" },
+  email: { label: "Email", id: "r-email" },
+  attending: { label: "Will you join us? (Yes / No)", id: "r-attending" },
+  arrivalDate: { label: "Arrival date", id: "r-arrival-date" },
+  departureDate: { label: "Departure date", id: "r-departure-date" },
+  idFiles: { label: "Aadhaar files", id: "r-id" },
+  arrivalFiles: { label: "Arrival ticket files", id: "r-arrival-files" },
+  departureFiles: { label: "Departure ticket files", id: "r-departure-files" },
+};
+
+function jumpTo(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  el.focus({ preventScroll: true });
 }
 
 function Choice({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
@@ -55,6 +100,9 @@ function checkFiles(list: FileList | null): string | undefined {
   if (list.length > 5) return "Up to 5 files, please";
   for (const f of Array.from(list)) {
     if (f.size > 10 * 1024 * 1024) return `${f.name} is over 10 MB`;
+    // same rule as the server: a photo (JPG, PNG, WEBP, HEIC) or a PDF
+    if (!/\.(jpe?g|png|webp|heic|heif|pdf)$/i.test(f.name) && !/^(image\/(jpe?g|png|webp|heic|heif)|application\/pdf)$/i.test(f.type))
+      return `${f.name}: please upload a photo (JPG, PNG, HEIC) or a PDF`;
   }
   return undefined;
 }
@@ -70,6 +118,8 @@ export default function RsvpSection() {
   const [guestCount, setGuestCount] = useState(1);
   const [guestRows, setGuestRows] = useState<Guest[]>([]);
   const [guestErrors, setGuestErrors] = useState<Record<number, GuestErr>>({});
+  // Everything still missing after a Send attempt, in form order, shown above the button.
+  const [missing, setMissing] = useState<{ label: string; id: string }[]>([]);
 
   // Guest 1 is the person filling the form; rows cover guests 2…N and keep what was typed.
   function changeGuestCount(n: number) {
@@ -78,6 +128,27 @@ export default function RsvpSection() {
   }
   function updateGuest(i: number, patch: Partial<Guest>) {
     setGuestRows((prev) => prev.map((g, idx) => (idx === i ? { ...g, ...patch } : g)));
+    const field = "name" in patch ? "name" : "phone" in patch ? "phone" : null;
+    if (field && guestErrors[i]?.[field]) {
+      setGuestErrors((prev) => ({ ...prev, [i]: { ...prev[i], [field]: undefined } }));
+      setMissing((prev) => prev.filter((m) => m.id !== `r-g${i}-${field}`));
+    }
+  }
+
+  // Choosing "No" also drops anything that only "Yes" needed (dates, guest names, files).
+  function chooseAttending(v: "yes" | "no") {
+    setAttending(v);
+    if (!errors.attending && !(v === "no" && missing.length)) return;
+    const keep = new Set(["r-name", "r-phone", "r-email"]);
+    setErrors(({ attending: _, ...rest }) => (v === "no" ? { ...(rest.name && { name: rest.name }), ...(rest.phone && { phone: rest.phone }), ...(rest.email && { email: rest.email }) } : rest));
+    setMissing((prev) => prev.filter((m) => m.id !== "r-attending" && (v === "yes" || keep.has(m.id))));
+  }
+
+  // As soon as a flagged field is filled in, drop its error and its line in the list.
+  function clearError(key: ErrKey) {
+    if (!errors[key]) return;
+    setErrors(({ [key]: _, ...rest }) => rest);
+    setMissing((prev) => prev.filter((m) => m.id !== FIELD_INFO[key].id));
   }
 
   const [thanksNeedsTap, setThanksNeedsTap] = useState(false);
@@ -92,6 +163,9 @@ export default function RsvpSection() {
   if (status === "sending") {
     guideMood = "idle";
     guideLine = { text: "Ek minute, bhej rahe hain…", hint: "Sending your RSVP." };
+  } else if (missing.length) {
+    guideMood = "idle";
+    guideLine = { text: "Arre, kuch reh gaya!", hint: "A few details are missing, see the list below." };
   } else if (attending === "yes") {
     guideMood = "cheer";
     guideLine =
@@ -132,8 +206,21 @@ export default function RsvpSection() {
       const msg = checkFiles(input?.files ?? null);
       if (msg) errs[k] = msg;
     }
+    if (attending === "yes" && !errs.idFiles) {
+      const ids = (form.elements.namedItem("idFiles") as HTMLInputElement | null)?.files;
+      if (!ids || ids.length === 0) errs.idFiles = "Please upload the Aadhaar card(s) for your group";
+    }
     setErrors(errs);
-    if (Object.keys(errs).length || Object.keys(gErrs).length) return;
+    // build the list in the order the fields appear on the form
+    const list: { label: string; id: string }[] = [];
+    for (const k of ["name", "phone", "email", "attending"] as const) if (errs[k]) list.push(FIELD_INFO[k]);
+    guestRows.forEach((_, i) => {
+      if (gErrs[i]?.name) list.push({ label: `Guest ${i + 2}'s name`, id: `r-g${i}-name` });
+      if (gErrs[i]?.phone) list.push({ label: `Guest ${i + 2}'s mobile (check the number)`, id: `r-g${i}-phone` });
+    });
+    for (const k of ["idFiles", "arrivalDate", "arrivalFiles", "departureDate", "departureFiles"] as const) if (errs[k]) list.push(FIELD_INFO[k]);
+    setMissing(list);
+    if (list.length) return;
 
     fd.set("attending", attending!);
     fd.set("arrivalMode", attending === "yes" ? arrivalMode : "");
@@ -169,8 +256,8 @@ export default function RsvpSection() {
         {status !== "done" ? (
           <div className="mx-auto mt-8 flex items-end justify-center gap-3" aria-live="polite">
             <div className="flex shrink-0 items-end">
-              <Avatar who="groom" mood={guideMood} className="-mx-2 h-24 w-20 sm:h-28 sm:w-24" />
-              <Avatar who="bride" mood={guideMood} className="-mx-2 h-24 w-20 sm:h-28 sm:w-24" />
+              <Avatar who="groom" mood={guideMood} className="h-40 w-auto sm:h-48" />
+              <Avatar who="bride" mood={guideMood} className="-ml-1 h-40 w-auto sm:h-48" />
             </div>
             <Bubble line={guideLine} className="mb-6" />
           </div>
@@ -179,11 +266,15 @@ export default function RsvpSection() {
         {status === "done" ? (
           <Reveal className="relative mt-10 text-center">
             <Petals count={8} />
-            <div className="flex items-end justify-center">
-              <Avatar who="groom" mood="cheer" className="-mx-1 h-28 w-24" />
-              <Avatar who="bride" mood="cheer" className="-mx-1 h-28 w-24" />
+            <div className="flex items-end justify-center gap-1 sm:gap-4">
+              <Avatar who="groom" mood="cheer" className="relative z-10 -mr-6 h-36 w-auto sm:-mr-2 sm:h-44" />
+              <figure className="w-36 rotate-[-3deg] bg-[#fbf6ea] p-2 pb-1 shadow-[0_18px_40px_-14px_rgba(60,20,10,.55)] sm:w-44">
+                <img src={coupleThanks} alt="Hrishikesh and Nandita" loading="lazy" className="aspect-[4/5] w-full object-cover object-top" />
+                <figcaption className="py-1.5 font-display text-base italic text-[#3b2a1a]">See you in Goa!</figcaption>
+              </figure>
+              <Avatar who="bride" mood="cheer" className="relative z-10 -ml-6 h-36 w-auto sm:-ml-2 sm:h-44" />
             </div>
-            <GoldDivider />
+            <GoldDivider className="mt-8" />
             <p className="gold-text mt-10 font-hindi text-4xl">धन्यवाद!</p>
             <h3 className="mt-3 font-display text-4xl">Thank you, {guestName}!</h3>
             <p className="mx-auto mt-5 max-w-md leading-relaxed text-muted-foreground">
@@ -198,25 +289,44 @@ export default function RsvpSection() {
           </Reveal>
         ) : (
           <Reveal delay={0.1} className="mt-10 md:mt-12">
-            <form onSubmit={handleSubmit} noValidate className="gold-frame space-y-7 rounded-sm bg-card p-5 sm:p-8 md:p-12">
-              <Field label="Your name · आपका नाम" htmlFor="r-name" error={errors.name}>
-                <input id="r-name" name="name" className={inputClass} maxLength={200} autoComplete="name" />
+            <form
+              onSubmit={handleSubmit}
+              onInput={(e) => {
+                const key = (e.target as HTMLInputElement).name as ErrKey;
+                if (key in FIELD_INFO) clearError(key);
+              }}
+              // file pickers report through "change"
+              onChange={(e) => {
+                const key = (e.target as unknown as HTMLInputElement).name as ErrKey;
+                if (key in FIELD_INFO) clearError(key);
+              }}
+              noValidate
+              className="gold-frame space-y-7 rounded-sm bg-card p-5 sm:p-8 md:p-12"
+            >
+              <p className="-mb-2 text-xs text-muted-foreground">
+                <span aria-hidden="true" className="text-destructive">*</span> Required
+              </p>
+              <Field label="Your name · आपका नाम" htmlFor="r-name" error={errors.name} required>
+                <input id="r-name" name="name" className={inputClass} maxLength={200} autoComplete="name" aria-required="true" />
               </Field>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <Field label="Your mobile (WhatsApp) · फ़ोन" htmlFor="r-phone" error={errors.phone}>
-                  <input id="r-phone" name="phone" type="tel" inputMode="tel" placeholder="+91 ..." className={inputClass} maxLength={20} autoComplete="tel" />
+                <Field label="Your mobile (WhatsApp) · फ़ोन" htmlFor="r-phone" error={errors.phone} required>
+                  <input id="r-phone" name="phone" type="tel" inputMode="tel" placeholder="+91 ..." className={inputClass} maxLength={20} autoComplete="tel" aria-required="true" />
                 </Field>
-                <Field label="Email · ईमेल" htmlFor="r-email" error={errors.email}>
-                  <input id="r-email" name="email" type="email" inputMode="email" placeholder="you@example.com" className={inputClass} maxLength={255} autoComplete="email" />
+                <Field label="Email · ईमेल" htmlFor="r-email" error={errors.email} required>
+                  <input id="r-email" name="email" type="email" inputMode="email" placeholder="you@example.com" className={inputClass} maxLength={255} autoComplete="email" aria-required="true" />
                 </Field>
               </div>
 
               <div>
-                <span className={labelClass}>Will you join us? · क्या आप आ रहे हैं?</span>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <Choice active={attending === "yes"} onClick={() => setAttending("yes")}>Yes, with blessings · जी हाँ</Choice>
-                  <Choice active={attending === "no"} onClick={() => setAttending("no")}>We'll miss it · नहीं आ सकेंगे</Choice>
+                <span className={labelClass}>
+                  Will you join us? · क्या आप आ रहे हैं?
+                  <Star />
+                </span>
+                <div id="r-attending" tabIndex={-1} className={`grid gap-3 rounded-sm outline-none sm:grid-cols-2 ${errors.attending ? "ring-1 ring-destructive/60 ring-offset-4 ring-offset-card" : ""}`}>
+                  <Choice active={attending === "yes"} onClick={() => chooseAttending("yes")}>Yes, with blessings · जी हाँ</Choice>
+                  <Choice active={attending === "no"} onClick={() => chooseAttending("no")}>We'll miss it · नहीं आ सकेंगे</Choice>
                 </div>
                 {errors.attending ? <p className={errorClass}>{errors.attending}</p> : null}
               </div>
@@ -251,7 +361,7 @@ export default function RsvpSection() {
                               </div>
                             </div>
                             <div className="grid gap-4 md:grid-cols-2">
-                              <Field label="Name" htmlFor={`r-g${i}-name`} error={guestErrors[i]?.name}>
+                              <Field label="Name" htmlFor={`r-g${i}-name`} error={guestErrors[i]?.name} required>
                                 <input id={`r-g${i}-name`} value={g.name} onChange={(e) => updateGuest(i, { name: e.target.value })} className={inputClass} maxLength={200} autoComplete="off" />
                               </Field>
                               <Field label="Mobile (optional)" htmlFor={`r-g${i}-phone`} error={guestErrors[i]?.phone}>
@@ -264,8 +374,8 @@ export default function RsvpSection() {
                     </AnimatePresence>
                   </div>
 
-                  <Field label="Aadhaar card of all guests (photo or PDF, up to 5)" htmlFor="r-id" error={errors.idFiles}>
-                    <input id="r-id" name="idFiles" type="file" multiple accept="image/*,application/pdf" className={fileClass} />
+                  <Field label="Aadhaar card of all guests (photo or PDF, up to 5)" htmlFor="r-id" error={errors.idFiles} required>
+                    <input id="r-id" name="idFiles" type="file" multiple accept="image/*,application/pdf" className={fileClass} aria-required="true" />
                   </Field>
 
                   {(["arrival", "departure"] as const).map((kind) => {
@@ -276,7 +386,7 @@ export default function RsvpSection() {
                       <fieldset key={kind} className="space-y-5 border-t border-border pt-6">
                         <legend className="font-display text-2xl">{isA ? "Arrival · आगमन" : "Departure · प्रस्थान"}</legend>
                         <div className="grid grid-cols-2 gap-4">
-                          <Field label="Date" htmlFor={`r-${kind}-date`} error={errors[`${kind}Date`]}>
+                          <Field label="Date" htmlFor={`r-${kind}-date`} error={errors[`${kind}Date`]} required>
                             <input id={`r-${kind}-date`} name={`${kind}Date`} type="date" className={inputClass} />
                           </Field>
                           <Field label="Time" htmlFor={`r-${kind}-time`}>
@@ -306,6 +416,33 @@ export default function RsvpSection() {
               <Field label="A note for the couple (optional) · शुभकामनाएँ" htmlFor="r-msg">
                 <textarea id="r-msg" name="message" className={`${inputClass} min-h-24`} maxLength={500} />
               </Field>
+
+              <AnimatePresence initial={false}>
+                {missing.length ? (
+                  <motion.div
+                    key="missing"
+                    role="alert"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="rounded-sm border border-destructive/40 bg-destructive/5 p-4"
+                  >
+                    <p className="font-display text-lg text-destructive">
+                      Almost there! Please fill in {missing.length === 1 ? "this" : `these ${missing.length}`}:
+                    </p>
+                    <ul className="mt-2 space-y-1">
+                      {missing.map((m) => (
+                        <li key={m.id}>
+                          <button type="button" onClick={() => jumpTo(m.id)} className="min-h-9 text-left text-sm text-foreground underline decoration-destructive/40 underline-offset-4 hover:text-destructive">
+                            • {m.label} ↑
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-2 text-xs text-muted-foreground">Tap an item to jump to it, then press Send again.</p>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
 
               {serverError ? <p className={errorClass}>{serverError}</p> : null}
 

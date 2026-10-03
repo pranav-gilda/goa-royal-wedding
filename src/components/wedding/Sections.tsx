@@ -1,6 +1,8 @@
 import { Reveal, GoldDivider } from "./decor";
 import resortGardens from "@/assets/resort-gardens.webp.asset.json";
 import resortSeafront from "@/assets/resort-seafront.webp.asset.json";
+import monogram from "@/assets/monogram.jpg";
+import { Avatar } from "./Avatars";
 
 /* ------------------------------------------------------------------ */
 /* Travel & stay: one panel over the resort photo                      */
@@ -100,8 +102,11 @@ export function Footer() {
   return (
      <footer className="px-6 pb-24 pt-12 text-center md:pt-16">
       <GoldDivider />
-      <div className="mx-auto mt-10 flex h-20 w-20 items-center justify-center rounded-full border border-primary/60">
-         <span className="font-display text-3xl text-primary">H·N</span>
+      {/* the white of the watercolour monogram melts into the page via multiply */}
+      <img src={monogram} alt="N H monogram" loading="lazy" className="mx-auto mt-8 w-56 mix-blend-multiply sm:w-64" />
+      <div className="mt-2 flex items-end justify-center gap-2" aria-hidden="true">
+        <Avatar who="groom" mood="namaste" className="h-32 w-auto" />
+        <Avatar who="bride" mood="wave" className="h-32 w-auto" />
       </div>
       <p className="mt-6 text-sm text-muted-foreground">
         With love &amp; blessings · स्नेह सहित

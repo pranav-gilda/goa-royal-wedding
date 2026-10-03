@@ -27,7 +27,12 @@ export const Route = createFileRoute("/")({
           "Two days, nine celebrations, one royal Goan wedding. RSVP for your family here.",
       },
       { property: "og:type", content: "website" },
+      // Link previews (WhatsApp etc.) need an absolute URL; the file lives in public/.
+      { property: "og:image", content: "https://hridaysenata-invitation.lovable.app/og-image.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://hridaysenata-invitation.lovable.app/og-image.jpg" },
     ],
   }),
   component: Index,

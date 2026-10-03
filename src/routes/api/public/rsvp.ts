@@ -14,6 +14,23 @@ const FOLDERS = {
 const MAX_FILE = 10 * 1024 * 1024;
 const MAX_FILES = 5;
 const ALLOWED = /^(image\/(jpeg|png|webp|heic|heif)|application\/pdf)$/;
+const BY_EXT: Record<string, string> = {
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  png: "image/png",
+  webp: "image/webp",
+  heic: "image/heic",
+  heif: "image/heif",
+  pdf: "application/pdf",
+};
+
+/** Some phones send "image/jpg" or no type at all (often for HEIC), so fall back to the extension. */
+function fileType(f: File): string {
+  const t = f.type.toLowerCase();
+  if (t === "image/jpg" || t === "image/pjpeg") return "image/jpeg";
+  if (t && t !== "application/octet-stream") return t;
+  return BY_EXT[f.name.split(".").pop()?.toLowerCase() ?? ""] ?? t;
+}
 
 const mode = z.enum(["Flight", "Train", "Road", "Other", ""]);
 const guestRow = z.object({
@@ -58,7 +75,7 @@ async function uploadToDrive(
   const bytes = new Uint8Array(await file.arrayBuffer());
   const enc = new TextEncoder();
   const head = enc.encode(
-    `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${meta}\r\n--${boundary}\r\nContent-Type: ${file.type}\r\n\r\n`,
+    `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${meta}\r\n--${boundary}\r\nContent-Type: ${fileType(file)}\r\n\r\n`,
   );
   const tail = enc.encode(`\r\n--${boundary}--`);
   const body = new Uint8Array(head.length + bytes.length + tail.length);
@@ -133,6 +150,9 @@ export const Route = createFileRoute("/api/public/rsvp")({
           arrival: form.getAll("arrivalFiles"),
           departure: form.getAll("departureFiles"),
         };
+        // Guests who are coming must send ID (needed for the resort check-in).
+        if (d.attending === "yes" && !groups.id.some((f) => f instanceof File && f.size > 0))
+          return json({ ok: false, error: "Please upload the Aadhaar card(s) for your group." }, 400);
         for (const list of Object.values(groups)) {
           const files = list.filter((f): f is File => f instanceof File && f.size > 0);
           if (files.length > MAX_FILES)
@@ -140,7 +160,7 @@ export const Route = createFileRoute("/api/public/rsvp")({
           for (const f of files) {
             if (f.size > MAX_FILE)
               return json({ ok: false, error: `${f.name} is over 10 MB.` }, 400);
-            if (!ALLOWED.test(f.type))
+            if (!ALLOWED.test(fileType(f)))
               return json({ ok: false, error: `${f.name}: please upload a photo or PDF.` }, 400);
           }
         }

@@ -320,7 +320,7 @@ export default function Intro() {
               style={{ transformOrigin: "50% 100%" }}
             >
               <div className="guide-sway" style={{ animationDelay: who === "bride" ? "-1.6s" : "0s" }}>
-                <Avatar who={who} mood={portalUp ? "cheer" : "wave"} className="h-[min(25svh,250px)] w-[min(21.5svh,215px)]" />
+                <Avatar who={who} mood={portalUp ? "cheer" : "wave"} eager className="h-[min(30svh,300px)] w-auto" />
               </div>
             </motion.div>
           ))}

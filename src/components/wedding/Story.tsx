@@ -10,12 +10,19 @@ import { Avatar, type Mood, type Who } from "./Avatars";
  * with its file name. Slides without a photo show an illustration instead.
  */
 
-type Slide = { file?: string; who?: Who[]; mood?: Mood; caption: string; sub?: string };
+/** `pos` is the CSS object-position for the photo crop (default keeps faces in frame). */
+type Slide = { file?: string; pos?: string; who?: Who[]; mood?: Mood; caption: string; sub?: string };
 
 const STORY: Slide[] = [
   { file: "01-baby-hrishi", caption: "Guess who?", sub: "Little Hrishikesh" },
-  { file: "02-baby-nandita", caption: "…and this cutie?", sub: "Little Nandita" },
-  { who: ["groom", "bride"], mood: "wave", caption: "Two paths became one", sub: "More of our story, coming soon" },
+  { file: "01-baby-nandita", caption: "…and this cutie?", sub: "Little Nandita" },
+  { file: "02-baby-nandita", caption: "That smile? Still the same.", sub: "Nandita" },
+  { file: "03-baby-nandita", caption: "Serious since day one", sub: "Baby Nandita" },
+  { who: ["groom", "bride"], mood: "wave", caption: "Two paths became one", sub: "…and then they met" },
+  { file: "05-couple-first", pos: "50% 20%", caption: "Hrishikesh, meet Nandita", sub: "The beginning" },
+  { file: "06-couple-talks", pos: "60% 35%", caption: "Baatein shuru, khatam hi nahi hui", sub: "The conversations never ended" },
+  { file: "07-engagement", pos: "50% 15%", caption: "Sagaai ho gayi!", sub: "And just like that, engaged" },
+  { file: "08-couple-bond", pos: "50% 25%", caption: "Hriday se nata", sub: "A bond of the heart" },
   { who: ["groom", "bride"], mood: "cheer", caption: "And now… the wedding!", sub: "Scroll on for the celebrations ↓" },
 ];
 
@@ -37,11 +44,18 @@ function Card({ slide, n }: { slide: Slide; n: number }) {
     <div className="h-full w-full bg-[#fbf6ea] p-3 pb-0 shadow-[0_18px_40px_-14px_rgba(60,20,10,.55)] sm:p-4 sm:pb-0">
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#2a0f14]">
         {url ? (
-          <img src={url} alt={slide.sub ?? slide.caption} draggable={false} className="h-full w-full object-cover" loading={n < 2 ? "eager" : "lazy"} />
+          <img
+            src={url}
+            alt={slide.sub ?? slide.caption}
+            draggable={false}
+            className="h-full w-full object-cover"
+            style={{ objectPosition: slide.pos ?? "50% 30%" }}
+            loading={n < 2 ? "eager" : "lazy"}
+          />
         ) : (
-          <div className="flex h-full w-full items-end justify-center" style={{ background: "radial-gradient(ellipse at 50% 35%, #6b2a38, #2a0f14 75%)" }}>
+          <div className="flex h-full w-full items-end justify-center gap-1 pb-3" style={{ background: "radial-gradient(ellipse at 50% 35%, #6b2a38, #2a0f14 75%)" }}>
             {slide.who?.map((w) => (
-              <Avatar key={w} who={w} mood={slide.mood ?? "idle"} className="-mx-4 h-[78%] w-[52%]" />
+              <Avatar key={w} who={w} mood={slide.mood ?? "idle"} className="h-[88%] w-auto max-w-[48%]" />
             ))}
           </div>
         )}

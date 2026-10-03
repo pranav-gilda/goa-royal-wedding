@@ -164,6 +164,7 @@
 
 .av-bob { animation: av-bob 4.2s ease-in-out infinite; transform-origin: 50% 100%; }
 .av-bounce { animation: av-bounce 0.7s ease-in-out infinite; transform-origin: 50% 100%; }
+.av-droop { transform: translateY(3px) rotate(-3deg); transform-origin: 50% 100%; filter: saturate(0.7); transition: transform 0.4s, filter 0.4s; }
 .av-wave { animation: av-wave 1.1s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
 .av-blink { animation: av-blink 5s infinite; transform-box: fill-box; transform-origin: center; }
 .av-twinkle { animation: av-twinkle 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
@@ -200,6 +201,11 @@
 .walker-leg-b { animation: leg-a 0.5s ease-in-out infinite reverse; transform-box: fill-box; transform-origin: 50% 0; }
 @keyframes walker-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
 @keyframes leg-a { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } }
+/* progress-bar couple: alternate little hops while the page is moving */
+.walker-hop { animation: walker-hop 0.42s ease-in-out infinite; transform-origin: 50% 100%; }
+.walker-hop-b { animation-delay: -0.21s; }
+@keyframes walker-hop { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-2px) rotate(2deg); } }
+.walker-idle .walker-hop { animation: none; }
 
 .cue-ring::before {
   content: "";
@@ -241,6 +247,6 @@ html.intro-seen .intro-overlay { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .animate-shimmer, .animate-float-soft,
   .av-bob, .av-bounce, .av-wave, .av-blink, .av-twinkle,
-  .walker, .walker-leg-a, .walker-leg-b, .cue-ring::before, .bead-strand, .seal-pulse, .mandala-spin, .mandala-spin-rev, .guide-sway, .shine::after, .nudge-right { animation: none; }
+  .walker, .walker-leg-a, .walker-leg-b, .walker-hop, .cue-ring::before, .bead-strand, .seal-pulse, .mandala-spin, .mandala-spin-rev, .guide-sway, .shine::after, .nudge-right { animation: none; }
   .petals { display: none; }
 }

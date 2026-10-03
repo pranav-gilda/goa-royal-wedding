@@ -281,7 +281,47 @@ function Dada({ mood }: { mood: Mood }) {
 
 const NAMES: Record<Who, string> = { groom: "Hrishikesh", bride: "Nandita", dada: "Dadaji", dadi: "Dadiji" };
 
-export function Avatar({ who, mood = "idle", className = "", children }: { who: Who; mood?: Mood; className?: string; children?: ReactNode }) {
+/*
+ * The couple's illustrated cut-outs (src/assets/avatars, keyed from their green-screen
+ * video). Moods without their own clip fall back to the standing still.
+ */
+const ART = import.meta.glob("/src/assets/avatars/*.webp", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
+const art = (name: string) => ART[`/src/assets/avatars/${name}.webp`];
+
+export function avatarArt(who: Who, mood: Mood): string | undefined {
+  if (who !== "groom" && who !== "bride") return undefined;
+  return art(`${who}-${mood}`) ?? art(`${who}-still`);
+}
+
+export function Avatar({
+  who,
+  mood = "idle",
+  className = "",
+  eager = false,
+  children,
+}: {
+  who: Who;
+  mood?: Mood;
+  className?: string;
+  eager?: boolean;
+  children?: ReactNode;
+}) {
+  const src = avatarArt(who, mood);
+  if (src) {
+    const motionClass = mood === "cheer" ? "av-bounce" : mood === "sad" ? "av-droop" : mood === "idle" ? "av-bob" : "";
+    return (
+      <img
+        src={src}
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        data-who={NAMES[who]}
+        className={`select-none object-contain object-bottom ${motionClass} ${className}`}
+      />
+    );
+  }
   const body =
     who === "groom" ? <Groom mood={mood} /> : who === "bride" ? <Bride mood={mood} /> : who === "dada" ? <Dada mood={mood} /> : <Dadi mood={mood} />;
   return (
