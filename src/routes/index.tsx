@@ -1,14 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Hero from "@/components/wedding/Hero";
-import {
-  CoupleStory,
-  Events,
-  Footer,
-  Invite,
-  Travel,
-} from "@/components/wedding/Sections";
+import { Footer, Travel } from "@/components/wedding/Sections";
+import Journey from "@/components/wedding/Journey";
 import RsvpSection from "@/components/wedding/RsvpSection";
 import MusicToggle from "@/components/wedding/MusicToggle";
+import Intro from "@/components/wedding/Intro";
+import ScrollWalker from "@/components/wedding/ScrollWalker";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,10 +36,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="overflow-x-clip bg-background font-body text-foreground">
-      <Hero />
-      <Invite />
-      <CoupleStory />
-      <Events />
+      <Intro />
+      <ScrollWalker />
+      <Journey />
       <Travel />
       <RsvpSection />
       <Footer />

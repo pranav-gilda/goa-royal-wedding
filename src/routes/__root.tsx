@@ -9,6 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { MotionConfig } from "motion/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -117,8 +118,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Runs before first paint. The intro shows once per browser session (so a fresh visit replays it);
+            ?intro=1 always shows it, ?intro=0 always skips it. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var q=location.search;if(!/[?&]intro=1/.test(q)&&(sessionStorage.getItem('hn-intro-seen')||/[?&]intro=0/.test(q)))document.documentElement.classList.add('intro-seen')}catch(e){}",
+          }}
+        />
         <HeadContent />
       </head>
       <body>
@@ -134,8 +143,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {/* "user" makes every motion animation honour the visitor's reduced-motion setting. */}
+      <MotionConfig reducedMotion="user">
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </MotionConfig>
     </QueryClientProvider>
   );
 }

@@ -160,6 +160,87 @@
 .hero-shade { background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 68%, transparent), color-mix(in oklch, var(--foreground) 57%, transparent) 42%, color-mix(in oklch, var(--foreground) 84%, transparent)); }
 .hero-heading { color: var(--hero-foreground); text-shadow: 0 2px 24px color-mix(in oklch, var(--foreground) 85%, transparent); }
 
+/* ---------- Avatar guides (transform/opacity only: cheap on phones) ---------- */
+
+.av-bob { animation: av-bob 4.2s ease-in-out infinite; transform-origin: 50% 100%; }
+.av-bounce { animation: av-bounce 0.7s ease-in-out infinite; transform-origin: 50% 100%; }
+.av-wave { animation: av-wave 1.1s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.av-blink { animation: av-blink 5s infinite; transform-box: fill-box; transform-origin: center; }
+.av-twinkle { animation: av-twinkle 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.av-twinkle-b { animation-delay: 0.45s; }
+.av-twinkle-c { animation-delay: 0.9s; }
+
+@keyframes av-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes av-bounce { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-8px); } }
+@keyframes av-wave { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(18deg); } }
+@keyframes av-blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+@keyframes av-twinkle { 0%, 100% { opacity: 0.25; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.15); } }
+
+/* ---------- Petals, walker, scroll cue, envelope scene ---------- */
+
+.petal {
+  position: absolute;
+  top: -6svh;
+  border-radius: 62% 4% 62% 62%;
+  background: radial-gradient(circle at 30% 28%, #ffd978, #f2992e 62%, #d9731a);
+  opacity: 0.8;
+  animation: petal-fall 20s linear infinite;
+  will-change: transform;
+}
+@keyframes petal-fall {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: 0.85; }
+  50% { transform: translate3d(var(--drift, 20px), 55svh, 0) rotate(200deg); }
+  92% { opacity: 0.8; }
+  100% { transform: translate3d(calc(var(--drift, 20px) * -0.6), 112svh, 0) rotate(420deg); opacity: 0; }
+}
+
+.walker { animation: walker-bob 0.5s ease-in-out infinite; }
+.walker-leg-a { animation: leg-a 0.5s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 0; }
+.walker-leg-b { animation: leg-a 0.5s ease-in-out infinite reverse; transform-box: fill-box; transform-origin: 50% 0; }
+@keyframes walker-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
+@keyframes leg-a { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } }
+
+.cue-ring::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 1px solid var(--hero-gold);
+  animation: cue-pulse 2.2s ease-out infinite;
+}
+@keyframes cue-pulse { 0% { transform: scale(0.85); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
+
+.bead-strand { animation: bead-sway 6s ease-in-out infinite; transform-origin: 50% 0; }
+@keyframes bead-sway { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+
+/* Seal, portal mandala, guide sway, button shine */
+.seal-pulse { box-shadow: 0 0 0 0 rgba(243, 220, 143, 0.55); animation: seal-pulse 2.4s ease-out infinite; }
+.seal-pulse-b { animation-delay: 1.2s; }
+@keyframes seal-pulse { 0% { box-shadow: 0 0 0 0 rgba(243, 220, 143, 0.5); } 100% { box-shadow: 0 0 0 46px rgba(243, 220, 143, 0); } }
+.mandala-spin { animation: spin-slow 22s linear infinite; transform-origin: center; transform-box: view-box; }
+.mandala-spin-rev { animation: spin-slow 30s linear infinite reverse; transform-origin: center; transform-box: view-box; }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.guide-sway { animation: guide-sway 3.6s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes guide-sway { 0%, 100% { transform: rotate(-2.5deg) translateY(0); } 50% { transform: rotate(2.5deg) translateY(-6px); } }
+.shine { position: relative; }
+.shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); transform: translateX(-120%); animation: shine 3s ease-in-out 1.2s infinite; }
+@keyframes shine { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+
+.nudge-right { animation: nudge-right 1.4s ease-in-out infinite; }
+@keyframes nudge-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+/* Intro overlay is hidden before first paint for returning guests (see __root.tsx). */
+html.intro-seen .intro-overlay { display: none; }
+
+@media (hover: hover) {
+  .lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .lift:hover { transform: translateY(-4px); box-shadow: 0 14px 30px -18px color-mix(in oklch, var(--primary) 70%, transparent); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-shimmer, .animate-float-soft { animation: none; }
+  .animate-shimmer, .animate-float-soft,
+  .av-bob, .av-bounce, .av-wave, .av-blink, .av-twinkle,
+  .walker, .walker-leg-a, .walker-leg-b, .cue-ring::before, .bead-strand, .seal-pulse, .mandala-spin, .mandala-spin-rev, .guide-sway, .shine::after, .nudge-right { animation: none; }
+  .petals { display: none; }
 }

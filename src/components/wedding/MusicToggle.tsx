@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import music from "@/assets/wedding-song.mp3.asset.json";
 import { Button } from "@/components/ui/button";
+import { registerMusic } from "@/lib/audio";
 
 /**
  * Soft instrumental backdrop. Browsers block autoplay until the visitor
@@ -16,6 +17,12 @@ export default function MusicToggle() {
     const el = audioRef.current;
     if (!el) return;
     el.volume = 0.3;
+    registerMusic(el);
+    // Keep the button in step when the intro (or anything else) starts/stops the track.
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    el.addEventListener("play", onPlay);
+    el.addEventListener("pause", onPause);
 
     const unlock = () => {
       el.play()
@@ -32,6 +39,9 @@ export default function MusicToggle() {
       });
 
     return () => {
+      registerMusic(null);
+      el.removeEventListener("play", onPlay);
+      el.removeEventListener("pause", onPause);
       window.removeEventListener("pointerdown", unlock);
       window.removeEventListener("touchstart", unlock);
       window.removeEventListener("keydown", unlock);

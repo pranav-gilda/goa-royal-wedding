@@ -16,16 +16,18 @@ const MAX_FILES = 5;
 const ALLOWED = /^(image\/(jpeg|png|webp|heic|heif)|application\/pdf)$/;
 
 const mode = z.enum(["Flight", "Train", "Road", "Other", ""]);
+const guestRow = z.object({
+  name: z.string().trim().min(2).max(200),
+  phone: z.string().trim().max(20).default(""),
+  type: z.enum(["adult", "child"]),
+});
 const schema = z.object({
   name: z.string().trim().min(2).max(200),
-  spouse: z.string().trim().max(200).default(""),
-  children: z.coerce.number().int().min(0).max(20),
   guests: z.coerce.number().int().min(1).max(40),
+  guestList: z.string().max(8000).default("[]"),
   email: z.string().trim().email().max(255),
   phone: z.string().trim().min(7).max(20),
-  otherPhones: z.string().trim().max(500).default(""),
   attending: z.enum(["yes", "no"]),
-  events: z.string().max(1000).default(""),
   arrivalDate: z.string().max(20).default(""),
   arrivalTime: z.string().max(20).default(""),
   arrivalMode: mode.default(""),
@@ -112,6 +114,20 @@ export const Route = createFileRoute("/api/public/rsvp")({
         }
         const d = parsed.data;
 
+        let others: z.infer<typeof guestRow>[] = [];
+        try {
+          const list = z.array(guestRow).max(39).safeParse(JSON.parse(d.guestList));
+          if (!list.success) throw new Error("bad guest list");
+          others = list.data;
+        } catch {
+          return json({ ok: false, error: "Please check the guest details." }, 400);
+        }
+        // Column H keeps one guest per line: "Name – number (Adult|Child)".
+        const otherGuests = others
+          .map((g) => `${g.name}${g.phone ? ` – ${g.phone}` : ""} (${g.type === "child" ? "Child" : "Adult"})`)
+          .join("\n");
+        const children = others.filter((g) => g.type === "child").length;
+
         const groups = {
           id: form.getAll("idFiles"),
           arrival: form.getAll("arrivalFiles"),
@@ -154,14 +170,14 @@ export const Route = createFileRoute("/api/public/rsvp")({
         const row = [
           new Date().toISOString(),
           d.name,
-          d.spouse,
-          String(d.children),
+          "", // column C (spouse) is superseded by the per-guest list in column H
+          String(children),
           String(d.guests),
           d.email,
           d.phone,
-          d.otherPhones,
+          otherGuests,
           d.attending === "yes" ? "Yes — attending" : "No — regrets",
-          d.events,
+          "", // column J (celebrations) is no longer collected; kept so columns K–U don't shift
           d.arrivalDate,
           d.arrivalTime,
           d.arrivalMode,
