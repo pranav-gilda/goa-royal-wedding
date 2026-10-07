@@ -4,6 +4,12 @@ import music from "@/assets/wedding-song.mp3.asset.json";
 import { Button } from "@/components/ui/button";
 import { registerMusic } from "@/lib/audio";
 
+// A track dropped into src/assets/music/ replaces the Lovable-hosted default.
+const LOCAL = Object.values(
+  import.meta.glob("/src/assets/music/*.{mp3,m4a,aac,ogg}", { eager: true, query: "?url", import: "default" }) as Record<string, string>,
+)[0];
+const SONG = LOCAL ?? music.url;
+
 /**
  * Soft instrumental backdrop. Browsers block autoplay until the visitor
  * interacts, so we try immediately and fall back to unlocking on the
@@ -63,7 +69,7 @@ export default function MusicToggle() {
 
   return (
     <>
-       <audio ref={audioRef} src={music.url} loop preload="none" />
+       <audio ref={audioRef} src={SONG} loop preload="none" />
        <Button
          type="button"
          variant="outline"

@@ -381,6 +381,18 @@ export default function Intro() {
                       </Scratch>
 
                       <p className="mt-3 text-[0.68rem] uppercase tracking-[0.22em] text-[#5a4630]">La Cabana Beach Resort · Ashvem, North Goa</p>
+                      <AnimatePresence>
+                        {stage === "revealed" ? (
+                          <motion.p
+                            initial={{ opacity: 0, height: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, height: "auto", scale: 1 }}
+                            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+                            className="overflow-hidden pt-3 font-hindi text-[1.35rem] text-[#6b1f2c]"
+                          >
+                            🌸 आओ सा… पधारो सा… 🌸
+                          </motion.p>
+                        ) : null}
+                      </AnimatePresence>
 
                       <div className="mx-auto mt-4 max-w-xs border-t border-[#d9a93f]/50 pt-3">
                         <p className="font-display text-base italic leading-snug">“{BLESSING.text}”</p>

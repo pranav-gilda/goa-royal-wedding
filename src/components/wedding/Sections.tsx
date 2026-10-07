@@ -3,6 +3,7 @@ import resortGardens from "@/assets/resort-gardens.webp.asset.json";
 import resortSeafront from "@/assets/resort-seafront.webp.asset.json";
 import monogram from "@/assets/monogram.jpg";
 import { Avatar } from "./Avatars";
+import AddToCalendar from "./AddToCalendar";
 
 /* ------------------------------------------------------------------ */
 /* Travel & stay: one panel over the resort photo                      */
@@ -108,15 +109,17 @@ export function Footer() {
         <Avatar who="groom" mood="namaste" className="h-32 w-auto" />
         <Avatar who="bride" mood="wave" className="h-32 w-auto" />
       </div>
-      <p className="mt-6 text-sm text-muted-foreground">
-        With love &amp; blessings · स्नेह सहित
-      </p>
+      <p className="mt-6 font-hindi text-2xl text-primary">🌺 घणी-घणी मनुहार सा 🙏 🌺</p>
+      <p className="mt-3 font-hindi text-base text-muted-foreground">आदर एवं स्नेह सहित</p>
       <p className="font-hindi mt-1 text-lg">ऋषिकेश एवं नंदिता के परिवार</p>
        <p className="mt-5 font-display text-2xl italic text-primary">Hriday Se Nata · हृदय से नाता</p>
        <p className="mt-4 text-sm">
          <VenueLink className="text-foreground" />
        </p>
        <p className="text-xs text-muted-foreground">1 &amp; 2 December 2026</p>
+       <div className="mt-3">
+         <AddToCalendar compact />
+       </div>
        <button type="button" onClick={() => window.dispatchEvent(new Event("hn-replay-intro"))} className="mt-4 mr-5 inline-block min-h-11 border-b border-primary pb-1 text-sm text-primary">Replay the invitation ✉</button>
        <a className="mt-4 inline-block border-b border-primary pb-1 text-sm text-primary" href="https://www.instagram.com/hridaysenata_?stkn=OWh4azlvd3E2dXNr" target="_blank" rel="noopener noreferrer">Follow our moments on Instagram ↗</a>
        <p className="mt-8 text-sm text-muted-foreground">For travel and wedding queries</p>

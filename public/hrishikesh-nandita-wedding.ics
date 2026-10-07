@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Hriday Se Nata//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:hrishikesh-nandita-wedding-20261201@hridaysenata-invitation.lovable.app
+DTSTAMP:20261006T000000Z
+DTSTART:20261201T053000Z
+DTEND:20261202T173000Z
+SUMMARY:Hrishikesh & Nandita's Wedding
+LOCATION:La Cabana Beach Resort\, Ashvem\, North Goa
+DESCRIPTION:Two days\, nine celebrations at La Cabana Beach Resort\, Ashvem
+ \, North Goa.
+
+Day 1 · Tue 1 Dec: Vinayak 11 AM · Maayra 2 PM · Sangeet
+  6:30 PM · After Party 10 PM
+Day 2 · Wed 2 Dec: Boho Carnival 9 AM · Sa
+ fa Bandhai 2 PM · Baaraat 3 PM · Jaimala 5:50 PM · Shaadi & Dinner 6:40
+  PM
+
+Invitation & RSVP: https://hridaysenata-invitation.lovable.app/
+Map: 
+ https://maps.app.goo.gl/jRkJVZuf5HE1KmC69
+URL:https://hridaysenata-invitation.lovable.app/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Hrishikesh & Nandita's wedding is in a week!
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:See you in Goa tomorrow!
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

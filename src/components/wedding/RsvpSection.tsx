@@ -8,6 +8,8 @@ import { Bubble, type GuideLine } from "./Guide";
 import Petals from "./Petals";
 import { hasVoice, playVoice } from "@/lib/audio";
 import coupleThanks from "@/assets/couple-thanks.jpg";
+import AddToCalendar from "./AddToCalendar";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 const MODES = ["Flight", "Train", "Road", "Other"] as const;
 
@@ -158,6 +160,14 @@ export default function RsvpSection() {
     void playVoice("thanks").then((ok) => setThanksNeedsTap(!ok));
   }, [status]);
 
+  // After a "yes", offer to save the date once the thank-you has had a moment to land.
+  const [calOpen, setCalOpen] = useState(false);
+  useEffect(() => {
+    if (status !== "done" || attending !== "yes") return;
+    const t = setTimeout(() => setCalOpen(true), 1600);
+    return () => clearTimeout(t);
+  }, [status, attending]);
+
   let guideMood: Mood = "wave";
   let guideLine: GuideLine = { text: "Batao batao, kaun-kaun aa raha hai?", hint: "Tell us who's coming." };
   if (status === "sending") {
@@ -252,6 +262,15 @@ export default function RsvpSection() {
           english="RSVP"
           sub="Kindly respond for your whole family — this helps us arrange your airport pickup and stay."
         />
+        <Reveal className="mt-6 text-center">
+          <p className="font-hindi text-lg leading-relaxed text-primary">
+            आप पधारो तो रौनक बढ़सी,
+            <br />
+            आपरो आशीष मिलसी तो
+            <br />
+            नवजीवन मंगलमय होसी।
+          </p>
+        </Reveal>
 
         {status !== "done" ? (
           <div className="mx-auto mt-8 flex items-end justify-center gap-3" aria-live="polite">
@@ -285,6 +304,12 @@ export default function RsvpSection() {
               <Button type="button" variant="outline" onClick={() => void playVoice("thanks").then((ok) => setThanksNeedsTap(!ok))} className="mt-4 min-h-11 rounded-sm border-primary/60 text-primary">
                 ▶ Hear a message from us
               </Button>
+            ) : null}
+            {attending === "yes" ? (
+              <div className="mx-auto mt-8 max-w-md border-t border-border pt-6">
+                <p className="mb-3 text-sm uppercase tracking-[0.25em] text-muted-foreground">Save the date · 1 &amp; 2 Dec 2026</p>
+                <AddToCalendar />
+              </div>
             ) : null}
           </Reveal>
         ) : (
@@ -454,6 +479,24 @@ export default function RsvpSection() {
           </Reveal>
         )}
       </div>
+
+      <Dialog open={calOpen} onOpenChange={setCalOpen}>
+        <DialogContent className="gold-frame max-w-[min(92vw,26rem)] rounded-sm bg-card px-6 py-8 text-center">
+          <p aria-hidden="true" className="text-4xl">📅</p>
+          <DialogTitle className="mt-2 text-center font-display text-3xl font-normal">Save the date!</DialogTitle>
+          <DialogDescription className="text-center text-base text-muted-foreground">
+            1 &amp; 2 December 2026 · La Cabana, Goa
+            <br />
+            <span className="font-hindi text-primary">आओ सा… पधारो सा…</span>
+          </DialogDescription>
+          <div className="mt-4">
+            <AddToCalendar onDone={() => setCalOpen(false)} />
+          </div>
+          <button type="button" onClick={() => setCalOpen(false)} className="mx-auto mt-2 min-h-11 rounded-sm px-2 text-sm text-muted-foreground underline underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-primary/40">
+            Maybe later
+          </button>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

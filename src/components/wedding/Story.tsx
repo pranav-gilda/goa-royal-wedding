@@ -5,25 +5,26 @@ import { Avatar, type Mood, type Who } from "./Avatars";
 /**
  * "Our Story": a stack of photo cards. Tap the top card and it flicks away
  * to reveal the next one. Drag/swipe works too. No timers, no phone frame.
+ * Each card carries a short label; the story line itself is told underneath.
  *
  * Add a slide: drop the photo in src/assets/story/ and add an entry to STORY
- * with its file name. Slides without a photo show an illustration instead.
+ * with its file name (no extension). Slides without a photo show the couple's illustration.
  */
 
 /** `pos` is the CSS object-position for the photo crop (default keeps faces in frame). */
-type Slide = { file?: string; pos?: string; who?: Who[]; mood?: Mood; caption: string; sub?: string };
+type Slide = { file?: string; pos?: string; who?: Who[]; mood?: Mood; tag: string; line: string };
 
+// Told by Nandita, in her words.
 const STORY: Slide[] = [
-  { file: "01-baby-hrishi", caption: "Guess who?", sub: "Little Hrishikesh" },
-  { file: "01-baby-nandita", caption: "…and this cutie?", sub: "Little Nandita" },
-  { file: "02-baby-nandita", caption: "That smile? Still the same.", sub: "Nandita" },
-  { file: "03-baby-nandita", caption: "Serious since day one", sub: "Baby Nandita" },
-  { who: ["groom", "bride"], mood: "wave", caption: "Two paths became one", sub: "…and then they met" },
-  { file: "05-couple-first", pos: "50% 20%", caption: "Hrishikesh, meet Nandita", sub: "The beginning" },
-  { file: "06-couple-talks", pos: "60% 35%", caption: "Baatein shuru, khatam hi nahi hui", sub: "The conversations never ended" },
-  { file: "07-engagement", pos: "50% 15%", caption: "Sagaai ho gayi!", sub: "And just like that, engaged" },
-  { file: "08-couple-bond", pos: "50% 25%", caption: "Hriday se nata", sub: "A bond of the heart" },
-  { who: ["groom", "bride"], mood: "cheer", caption: "And now… the wedding!", sub: "Scroll on for the celebrations ↓" },
+  { file: "02-baby-nandita", tag: "Little Nandita", line: "Once upon a time, a little girl was growing up, unaware of the love story waiting for her." },
+  { file: "01-baby-hrishi", tag: "Little Hrishikesh", line: "And somewhere else, a little boy was growing up, unaware that his forever was growing up too." },
+  { file: "meet_cute", pos: "47% 75%", tag: "Our first date", line: "Years later, two strangers met… and somehow, it felt like the beginning of something that’s meant to be." },
+  { file: "party_together", pos: "50% 62%", tag: "The little moments", line: "Then came the little moments — the laughs, the madness, the memories… and somewhere along the way, we fell in love." },
+  { file: "couple", pos: "50% 20%", tag: "My favourite person", line: "He became my favourite person, my safest place, and my home." },
+  { file: "06-couple-talks", pos: "60% 35%", tag: "Us", line: "And suddenly, “us” became our favourite chapter." },
+  { file: "prayer", pos: "50% 55%", tag: "Answered prayer", line: "Somewhere in between, he became my answered prayer… and somewhere along the way, I became his home." },
+  { file: "engaged", pos: "50% 18%", tag: "Engaged", line: "Until one beautiful day, forever became official. From “you and me” to “we”…" },
+  { who: ["groom", "bride"], mood: "cheer", tag: "And now… the wedding!", line: "Scroll on for the celebrations ↓" },
 ];
 
 const FILES = import.meta.glob("/src/assets/story/*.{jpg,jpeg,png,webp,avif}", {
@@ -46,7 +47,7 @@ function Card({ slide, n }: { slide: Slide; n: number }) {
         {url ? (
           <img
             src={url}
-            alt={slide.sub ?? slide.caption}
+            alt={slide.tag}
             draggable={false}
             className="h-full w-full object-cover"
             style={{ objectPosition: slide.pos ?? "50% 30%" }}
@@ -60,9 +61,8 @@ function Card({ slide, n }: { slide: Slide; n: number }) {
           </div>
         )}
       </div>
-      <div className="flex min-h-[5.5rem] flex-col items-center justify-center px-2 py-3 text-center">
-        <p className="font-display text-[1.7rem] italic leading-tight text-[#3b2a1a]">{slide.caption}</p>
-        {slide.sub ? <p className="mt-0.5 text-sm text-[#7a6650]">{slide.sub}</p> : null}
+      <div className="flex min-h-[4.5rem] items-center justify-center px-2 py-3 text-center">
+        <p className="font-display text-[1.6rem] italic leading-tight text-[#3b2a1a]">{slide.tag}</p>
       </div>
     </div>
   );
@@ -82,8 +82,9 @@ export default function Story() {
 
   return (
     <div className="mx-auto flex w-full max-w-[22rem] flex-col items-center sm:max-w-sm">
+      {/* the card shrinks on short screens so the photo and its line fit on one screen */}
       <div
-        className="relative aspect-[4/6] w-full"
+        className="relative aspect-[4/6] w-[min(100%,calc((100svh-20rem)*0.667))] min-w-[14rem]"
         role="group"
         aria-roledescription="carousel"
         aria-label={`Our story, ${i + 1} of ${STORY.length}`}
@@ -116,7 +117,7 @@ export default function Story() {
             custom={dir}
             onClick={() => go(1)}
             disabled={i === last}
-            aria-label={i === last ? STORY[i]!.caption : "Next photo"}
+            aria-label={i === last ? STORY[i]!.tag : "Next photo"}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.7}
@@ -141,7 +142,23 @@ export default function Story() {
         </AnimatePresence>
       </div>
 
-      <div className="mt-9 flex items-center gap-4">
+      {/* the story line, told under the photo; space is reserved so nothing jumps */}
+      <div className="mt-8 flex min-h-[6.5rem] w-full items-start justify-center px-1" aria-live="polite">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.p
+            key={i}
+            initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -6, filter: "blur(4px)" }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center font-display text-[1.45rem] italic leading-snug text-foreground sm:text-[1.6rem]"
+          >
+            {STORY[i]!.line}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+
+      <div className="mt-4 flex items-center gap-4">
         <button
           type="button"
           onClick={() => go(-1)}
@@ -166,7 +183,7 @@ export default function Story() {
           exit={{ opacity: 0 }}
           className="mt-2 text-xs uppercase tracking-[0.25em] text-muted-foreground"
         >
-          {i === last ? "Scroll on ↓" : "Tap the photo"}
+          {i === last ? "" : "Tap the photo"}
         </motion.p>
       </AnimatePresence>
     </div>
