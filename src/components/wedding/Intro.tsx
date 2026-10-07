@@ -17,7 +17,6 @@ import { hasVoice, playVoice, startMusic, stopVoice } from "@/lib/audio";
  */
 
 const WELCOME = { text: "Aa gaye aap! Hum kab se wait kar rahe the…", from: "Hrishikesh & Nandita" };
-const BLESSING = { text: "Khush raho, aabaad raho. Poore parivaar ko aana hai!", from: "Dadaji & Dadiji" };
 
 const SEEN_KEY = "hn-intro-seen";
 const GOLD = "#d9a93f";
@@ -394,16 +393,16 @@ export default function Intro() {
                         ) : null}
                       </AnimatePresence>
 
+                      {/* the families' sign-off, in Hindi with a Hinglish line for everyone else */}
                       <div className="mx-auto mt-4 max-w-xs border-t border-[#d9a93f]/50 pt-3">
-                        <p className="font-display text-base italic leading-snug">“{BLESSING.text}”</p>
-                        <p className="mt-1 flex items-center justify-center gap-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a5f12]">
-                          {BLESSING.from}
-                          {hasVoice("blessing") ? (
-                            <button type="button" onClick={() => void playVoice("blessing")} aria-label={`Hear ${BLESSING.from}`} className="rounded-full border border-[#8a5f12]/60 px-2 py-0.5 normal-case tracking-normal hover:bg-[#8a5f12]/10">
-                              ▶ Hear
-                            </button>
-                          ) : null}
-                        </p>
+                        <p className="font-hindi text-base text-[#8a5f12]">आदर एवं स्नेह सहित</p>
+                        <p className="font-hindi text-lg leading-snug text-[#6b1f2c]">ऋषिकेश एवं नंदिता के परिवार</p>
+                        <p className="mt-1 font-display text-sm italic text-[#5a4630]">With aadar &amp; sneh, from the families of Hrishikesh &amp; Nandita</p>
+                        {hasVoice("blessing") ? (
+                          <button type="button" onClick={() => void playVoice("blessing")} aria-label="Hear a blessing from the family" className="mt-2 rounded-full border border-[#8a5f12]/60 px-2 py-0.5 text-[0.68rem] text-[#8a5f12] hover:bg-[#8a5f12]/10">
+                            ▶ Hear
+                          </button>
+                        ) : null}
                       </div>
                     </div>
                   </motion.div>

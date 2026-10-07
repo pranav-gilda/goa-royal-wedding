@@ -30,6 +30,7 @@ export default function ScrollWalker() {
       style={{ opacity }}
       className="pointer-events-none fixed inset-x-0 top-0 z-40 h-11 bg-background/90 backdrop-blur-sm"
     >
+      <p className="absolute inset-x-0 top-[9px] text-center font-hindi text-[1.05rem] leading-none text-primary">🌺 विवाह उत्सव 🌺</p>
       <div className="absolute inset-x-0 top-[41px] h-px bg-primary/20" />
       <motion.div style={{ scaleX: smooth }} className="absolute inset-x-0 top-[40px] h-[2px] origin-left bg-primary/70" />
       {/* inset so the pair never walks off either edge */}

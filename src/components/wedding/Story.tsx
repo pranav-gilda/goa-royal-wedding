@@ -16,7 +16,7 @@ type Slide = { file?: string; pos?: string; who?: Who[]; mood?: Mood; tag: strin
 
 // Told by Nandita, in her words.
 const STORY: Slide[] = [
-  { file: "02-baby-nandita", tag: "Little Nandita", line: "Once upon a time, a little girl was growing up, unaware of the love story waiting for her." },
+  { file: "03-baby-nandita", pos: "62% 40%", tag: "Little Nandita", line: "Once upon a time, a little girl was growing up, unaware of the love story waiting for her." },
   { file: "01-baby-hrishi", tag: "Little Hrishikesh", line: "And somewhere else, a little boy was growing up, unaware that his forever was growing up too." },
   { file: "meet_cute", pos: "47% 75%", tag: "Our first date", line: "Years later, two strangers met… and somehow, it felt like the beginning of something that’s meant to be." },
   { file: "party_together", pos: "50% 62%", tag: "The little moments", line: "Then came the little moments — the laughs, the madness, the memories… and somewhere along the way, we fell in love." },
@@ -81,10 +81,10 @@ export default function Story() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-[22rem] flex-col items-center sm:max-w-sm">
+    <div className="mx-auto flex w-full max-w-xl flex-col items-center">
       {/* the card shrinks on short screens so the photo and its line fit on one screen */}
       <div
-        className="relative aspect-[4/6] w-[min(100%,calc((100svh-20rem)*0.667))] min-w-[14rem]"
+        className="relative aspect-[4/6] w-[min(100%,22rem,calc((100svh-17rem)*0.667))] min-w-[14rem] sm:w-[min(100%,24rem,calc((100svh-17rem)*0.667))]"
         role="group"
         aria-roledescription="carousel"
         aria-label={`Our story, ${i + 1} of ${STORY.length}`}
@@ -143,7 +143,7 @@ export default function Story() {
       </div>
 
       {/* the story line, told under the photo; space is reserved so nothing jumps */}
-      <div className="mt-8 flex min-h-[6.5rem] w-full items-start justify-center px-1" aria-live="polite">
+      <div className="mt-7 flex min-h-[6.5rem] w-full items-start justify-center px-1 sm:min-h-[4.5rem]" aria-live="polite">
         <AnimatePresence mode="wait" initial={false}>
           <motion.p
             key={i}

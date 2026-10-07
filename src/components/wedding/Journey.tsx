@@ -238,49 +238,9 @@ function DayScroller({ day }: { day: Day }) {
   );
 }
 
-/** The formal invitation, in the families' Marwari, as it would appear on a printed card. */
-function Invitation() {
-  const family = (lead: string, name: string, rel: string, parents: string) => (
-    <div>
-      <p className="font-hindi text-base text-muted-foreground">{lead}</p>
-      <p className="gold-text mt-1 font-hindi text-[2.6rem] leading-tight">{name}</p>
-      <p className="font-hindi text-sm text-muted-foreground">{rel}</p>
-      <p className="mt-1 font-hindi text-lg text-foreground">{parents}</p>
-    </div>
-  );
-  return (
-    <section id="invitation" aria-label="Wedding invitation" className="px-4 pb-4 pt-16 text-center">
-      <Reveal>
-        <div className="gold-frame mx-auto max-w-md rounded-sm bg-card px-6 py-10 shadow-[0_20px_40px_-24px_rgba(60,20,10,.5)]">
-          <p className="font-hindi text-[1.9rem] text-primary">🌺 विवाह उत्सव 🌺</p>
-          <GoldDivider className="mt-4" />
-          <div className="mt-6 space-y-6">
-            {family("म्हारो लाडलो", "ऋषिकेश", "सुपुत्र", "श्रीमती राजश्री एवं श्री महेश गिल्डा")}
-            <p aria-hidden="true" className="font-display text-3xl italic text-primary/70">&amp;</p>
-            {family("म्हारी लाडली बहू", "नंदिता", "सुपुत्री", "श्रीमती निरुपाजी एवं श्री अजयजी गोवलिकर")}
-          </div>
-          <div aria-hidden="true" className="mx-auto my-7 h-px w-2/3 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-          <p className="font-hindi text-lg leading-loose text-foreground/90">
-            सात फेऱां री पावन डोर में बंधी,
-            <br />
-            प्रेम, विश्वास अर समर्पण रा संग,
-            <br />
-            दो हियड़ा एक-दूजे रा जीवनसाथी बनसी,
-            <br />
-            अर जीवन भर रो साथ निभावसी।
-          </p>
-          <p className="mt-7 font-hindi text-2xl text-primary">🌸 आओ सा… पधारो सा… 🌸</p>
-          <p className="mt-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">1 &amp; 2 December 2026 · La Cabana, Goa</p>
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
 export default function Journey() {
   return (
     <div id="journey" className="relative">
-      <Invitation />
       <section id="story" className="px-4 pb-16 pt-14 text-center">
         <Reveal>
           <p className="font-hindi text-xl text-primary">हमारी कहानी</p>
