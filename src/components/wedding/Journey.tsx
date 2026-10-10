@@ -22,7 +22,7 @@ type WeddingEvent = {
   dress?: string;
 };
 
-type Day = { n: 1 | 2; hindi: string; date: string; short: string; line: { text: string; hint: string }; events: WeddingEvent[] };
+type Day = { n: 1 | 2; hindi: string; date: string; dateHindi: string; short: string; line: { text: string; hint: string }; events: WeddingEvent[] };
 
 // Names, times, descriptions and colours follow the family's itinerary PDF.
 const DAYS: Day[] = [
@@ -30,10 +30,10 @@ const DAYS: Day[] = [
     n: 1,
     hindi: "पहला दिन",
     date: "Tuesday · 1 December 2026",
+    dateHindi: "मंगलवार · १ दिसंबर २०२६",
     short: "Tue, 1 Dec",
-    line: { text: "Do din, nau utsav. Bag bhar ke aana!", hint: "Two days, nine celebrations." },
+    line: { text: "Do din, saat utsav. Bag bhar ke aana!", hint: "Two days, seven celebrations." },
     events: [
-      { time: "11:00 AM", name: "Vinayak", hindi: "श्री गणेश पूजन", sub: "Shree Ganesh Poojan", desc: "Blessings to begin our journey with love and positivity.", color: "#1f5c42" },
       { time: "2:00 – 5:00 PM", name: "Maayra", hindi: "मायरा", desc: "A celebration of love, gifts and togetherness.", color: "#9b1b3a" },
       { time: "6:30 – 10:00 PM", name: "Sangeet", hindi: "संगीत", desc: "An evening of music, dance and unforgettable performances.", color: "#4b1d7a" },
       { time: "10:00 PM onwards", name: "After Party", hindi: "उत्सव", desc: "Let the music keep you alive!", color: "#1c2f6b" },
@@ -43,14 +43,14 @@ const DAYS: Day[] = [
     n: 2,
     hindi: "दूसरा दिन",
     date: "Wednesday · 2 December 2026",
+    dateHindi: "बुधवार · २ दिसंबर २०२६",
     short: "Wed, 2 Dec",
     line: { text: "Aaj shaadi hai! Baaraat mein naachna zaroor!", hint: "It's the big day!" },
     events: [
       { time: "9:00 AM – 12:00 PM", name: "Boho Carnival", hindi: "उत्सव", desc: "Fun games, boho vibes and a perfect start to the day!", color: "#a4501c" },
-      { time: "2:00 – 3:00 PM", name: "Safa Bandhai", hindi: "साफ़ा बंधाई", desc: "A royal touch to our celebrations.", color: "#4f5d1e" },
-      { time: "3:00 – 5:00 PM", name: "Baaraat", hindi: "बारात", desc: "Let the celebration ride in with joy and energy!", color: "#1c2f6b" },
+      { time: "2:00 – 5:00 PM", name: "Baaraat", hindi: "बारात", desc: "Let the celebration ride in with joy and energy!", color: "#1c2f6b" },
       { time: "5:50 PM", name: "Jaimala", hindi: "जयमाला", desc: "Two hearts, one promise for a lifetime.", color: "#9b1b3a" },
-      { time: "6:40 – 11:00 PM", name: "Shaadi & Dinner", hindi: "विवाह एवं रात्रिभोज", desc: "Promises, blessings and a celebration to remember forever.", color: "#4b1d7a" },
+      { time: "6:40 – 11:00 PM", name: "Phera", hindi: "फेरे", desc: "Promises, blessings and a celebration to remember forever.", color: "#4b1d7a" },
     ],
   },
 ];
@@ -180,7 +180,8 @@ function DayScroller({ day }: { day: Day }) {
             <div aria-hidden="true" className={`absolute left-1/2 right-0 top-[28%] border-t-2 border-dashed ${thread}`} />
             <p className={`font-hindi text-2xl ${dark ? "text-[#f3dc8f]" : "text-primary"}`}>{day.hindi}</p>
             <h2 className={`font-display text-[clamp(5rem,26vw,9rem)] font-bold leading-[0.9] ${ink}`}>Day {day.n}</h2>
-            <p className={`mt-3 text-xs uppercase tracking-[0.3em] ${muted}`}>{day.date}</p>
+            <p className={`mt-3 font-display text-xl font-semibold tracking-wide sm:text-2xl ${ink}`}>{day.date}</p>
+            <p className={`mt-1 font-hindi text-lg sm:text-xl ${ink}`}>{day.dateHindi}</p>
             <div className="mt-6 flex items-end gap-2">
               <Avatar who={dark ? "bride" : "groom"} mood="cheer" className="h-[min(22svh,11rem)] w-auto" />
               <Bubble line={day.line} className="mb-5" />

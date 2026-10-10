@@ -3,6 +3,8 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+/* short screens (iPhone SE, landscape laptops): tighten the intro scroll so its button stays on screen */
+@custom-variant short (@media (max-height: 720px));
 
 /*
  * Design system definition.
@@ -250,3 +252,11 @@ html.intro-seen .intro-overlay { display: none; }
   .walker, .walker-leg-a, .walker-leg-b, .walker-hop, .cue-ring::before, .bead-strand, .seal-pulse, .mandala-spin, .mandala-spin-rev, .guide-sway, .shine::after, .nudge-right { animation: none; }
   .petals { display: none; }
 }
+
+/* "Enter the celebration": a soft gold halo that breathes so it reads as the next step */
+.enter-glow { animation: enter-glow 1.8s ease-in-out infinite; }
+@keyframes enter-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 220, 143, 0.55), 0 10px 30px -8px rgba(0, 0, 0, 0.6); transform: scale(1); }
+  50% { box-shadow: 0 0 0 12px rgba(243, 220, 143, 0), 0 10px 30px -8px rgba(0, 0, 0, 0.6); transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) { .enter-glow { animation: none; box-shadow: 0 0 0 3px rgba(243, 220, 143, 0.5), 0 10px 30px -8px rgba(0, 0, 0, 0.6); } }

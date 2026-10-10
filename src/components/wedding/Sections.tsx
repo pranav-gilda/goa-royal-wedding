@@ -4,6 +4,7 @@ import resortSeafront from "@/assets/resort-seafront.webp.asset.json";
 import monogram from "@/assets/monogram.jpg";
 import { Avatar } from "./Avatars";
 import AddToCalendar from "./AddToCalendar";
+import { FAMILY_EN, FAMILY_HI } from "./family";
 
 /* ------------------------------------------------------------------ */
 /* Travel & stay: one panel over the resort photo                      */
@@ -110,9 +111,11 @@ export function Footer() {
         <Avatar who="bride" mood="wave" className="h-32 w-auto" />
       </div>
       <p className="mt-6 font-hindi text-2xl text-primary">🌺 घणी-घणी मनुहार सा 🌺</p>
-      <p className="mt-3 font-hindi text-base text-muted-foreground">आदर एवं स्नेह सहित</p>
-      <p className="font-hindi mt-1 text-lg">ऋषिकेश एवं नंदिता के परिवार</p>
-      <p className="mt-1 font-display text-sm italic text-muted-foreground">With aadar &amp; sneh, from the families of Hrishikesh &amp; Nandita</p>
+      <p className="mt-3 font-hindi text-base text-muted-foreground">स्नेह सहित</p>
+      {FAMILY_HI.map((n) => (
+        <p key={n} className="font-hindi mt-1 text-lg">{n}</p>
+      ))}
+      <p className="mt-2 font-display text-sm italic text-muted-foreground">Sneh sahit: {FAMILY_EN.join(" · ")}</p>
        <p className="mt-5 font-display text-2xl italic text-primary">Hriday Se Nata · हृदय से नाता</p>
        <p className="mt-4 text-sm">
          <VenueLink className="text-foreground" />

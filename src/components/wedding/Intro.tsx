@@ -4,6 +4,7 @@ import { Avatar } from "./Avatars";
 import { Mandala, SparkPortal } from "./MagicRing";
 import Petals from "./Petals";
 import Scratch from "./Scratch";
+import { FAMILY_EN, FAMILY_HI } from "./family";
 import { hasVoice, playVoice, startMusic, stopVoice } from "@/lib/audio";
 
 /**
@@ -220,9 +221,12 @@ export default function Intro() {
           <button
             type="button"
             onClick={finish}
-            className="absolute right-3 top-3 z-50 min-h-11 rounded-full border border-[#d9a93f]/50 bg-black/25 px-4 text-sm tracking-wide text-[#f3dc8f] backdrop-blur hover:bg-black/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#f3dc8f]"
+            aria-label="Skip the invitation"
+            className="group absolute right-1 top-1 z-50 p-2 focus-visible:outline-none"
           >
-            Skip · छोड़ें
+            <span className="block rounded-full border border-[#d9a93f]/35 bg-black/20 px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.15em] text-[#f3dc8f]/70 transition group-hover:text-[#f3dc8f] group-focus-visible:outline group-focus-visible:outline-1 group-focus-visible:outline-[#f3dc8f]">
+              Skip
+            </span>
           </button>
 
           {/* double gold frame, like a printed invite */}
@@ -357,12 +361,12 @@ export default function Intro() {
                     className="overflow-hidden"
                     style={{ background: "linear-gradient(90deg, #ead9ac, #f9f0d6 12%, #f9f0d6 88%, #ead9ac)" }}
                   >
-                    <div className="px-6 py-6 text-center text-[#3b2a1a] sm:px-9">
+                    <div className="px-6 py-6 text-center text-[#3b2a1a] short:py-3.5 sm:px-9">
                       <p className="font-hindi text-base text-[#8a5f12]">॥ श्री गणेशाय नमः ॥</p>
-                      <p className="mt-3 text-[0.68rem] uppercase tracking-[0.3em] text-[#8a5f12]">With the blessings of our elders</p>
-                      <h2 className="mt-3 font-display text-[clamp(1.9rem,8.5vw,2.6rem)] leading-[1.05] text-[#6b1f2c] [text-wrap:balance]">Hrishikesh weds Nandita</h2>
+                      <p className="mt-3 text-[0.68rem] uppercase tracking-[0.3em] text-[#8a5f12] short:mt-1.5">With the blessings of our elders</p>
+                      <h2 className="mt-3 font-display short:mt-1.5 text-[clamp(1.9rem,8.5vw,2.6rem)] short:text-[1.75rem] leading-[1.05] text-[#6b1f2c] [text-wrap:balance]">Hrishikesh weds Nandita</h2>
                       <p className="mt-2 font-hindi text-base">ऋषिकेश एवं नंदिता का शुभ विवाह</p>
-                      <div aria-hidden="true" className="mx-auto my-4 h-px w-2/3" style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }} />
+                      <div aria-hidden="true" className="mx-auto my-4 h-px w-2/3 short:my-2.5" style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }} />
 
                       <Scratch
                         label="Scratch for the date"
@@ -394,10 +398,12 @@ export default function Intro() {
                       </AnimatePresence>
 
                       {/* the families' sign-off, in Hindi with a Hinglish line for everyone else */}
-                      <div className="mx-auto mt-4 max-w-xs border-t border-[#d9a93f]/50 pt-3">
-                        <p className="font-hindi text-base text-[#8a5f12]">आदर एवं स्नेह सहित</p>
-                        <p className="font-hindi text-lg leading-snug text-[#6b1f2c]">ऋषिकेश एवं नंदिता के परिवार</p>
-                        <p className="mt-1 font-display text-sm italic text-[#5a4630]">With aadar &amp; sneh, from the families of Hrishikesh &amp; Nandita</p>
+                      <div className="mx-auto mt-4 max-w-xs border-t border-[#d9a93f]/50 pt-3 short:mt-2.5 short:pt-2">
+                        <p className="font-hindi text-base text-[#8a5f12]">स्नेह सहित</p>
+                        {FAMILY_HI.map((n) => (
+                          <p key={n} className="font-hindi text-[1.05rem] leading-snug text-[#6b1f2c]">{n}</p>
+                        ))}
+                        <p className="mt-1.5 font-display text-[0.8rem] italic leading-snug text-[#5a4630]">Sneh sahit: {FAMILY_EN.join(" · ")}</p>
                         {hasVoice("blessing") ? (
                           <button type="button" onClick={() => void playVoice("blessing")} aria-label="Hear a blessing from the family" className="mt-2 rounded-full border border-[#8a5f12]/60 px-2 py-0.5 text-[0.68rem] text-[#8a5f12] hover:bg-[#8a5f12]/10">
                             ▶ Hear
@@ -409,7 +415,7 @@ export default function Intro() {
                   <div aria-hidden="true" className="relative z-10 mx-auto h-3.5 w-[104%] -translate-x-[2%] rounded-full" style={{ background: "linear-gradient(#f3dc8f, #8a5f12)", boxShadow: "0 5px 10px rgba(0,0,0,.5)" }} />
                 </motion.div>
 
-                <div className="mt-6 h-14">
+                <div className="mt-6 h-20 short:mt-3">
                   <AnimatePresence>
                     {stage === "revealed" ? (
                       <motion.button
@@ -418,10 +424,11 @@ export default function Intro() {
                         initial={{ opacity: 0, y: 12, scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ type: "spring", stiffness: 200, damping: 16, delay: 0.5 }}
-                        className="shine min-h-12 overflow-hidden rounded-sm px-8 font-display text-xl text-[#2a0f14] shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dc8f]"
-                        style={{ background: "linear-gradient(135deg, #f3dc8f, #d9a93f)" }}
+                        className="shine enter-glow min-h-14 overflow-hidden rounded-full border-2 border-[#fff3c4] px-9 font-display text-[1.35rem] font-semibold text-[#2a0f14] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f3dc8f]"
+                        style={{ background: "linear-gradient(135deg, #fff1b8, #f3dc8f 35%, #d9a93f)" }}
                       >
-                        Enter the celebration · उत्सव में पधारें
+                        Enter the celebration <span aria-hidden="true">→</span>
+                        <span className="block font-hindi text-sm font-normal leading-tight">उत्सव में पधारें</span>
                       </motion.button>
                     ) : null}
                   </AnimatePresence>

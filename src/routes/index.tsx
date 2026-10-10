@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Two days, nine celebrations, one royal Goan wedding. RSVP for your family here.",
+          "Two days, seven celebrations, one royal Goan wedding. RSVP for your family here.",
       },
       { property: "og:type", content: "website" },
       // Link previews (WhatsApp etc.) need an absolute URL; the file lives in public/.
