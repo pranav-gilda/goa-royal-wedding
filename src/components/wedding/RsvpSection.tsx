@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { GoldDivider, Reveal, SectionHeading } from "./decor";
-import { Loader2, Send } from "lucide-react";
+import { CalendarDays, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, type Mood } from "./Avatars";
 import { Bubble, type GuideLine } from "./Guide";
@@ -482,7 +482,7 @@ export default function RsvpSection() {
 
       <Dialog open={calOpen} onOpenChange={setCalOpen}>
         <DialogContent className="gold-frame max-w-[min(92vw,26rem)] rounded-sm bg-card px-6 py-8 text-center">
-          <p aria-hidden="true" className="text-4xl">📅</p>
+          <CalendarDays className="mx-auto h-11 w-11 text-primary" aria-hidden="true" />
           <DialogTitle className="mt-2 text-center font-display text-3xl font-normal">Save the date!</DialogTitle>
           <DialogDescription className="text-center text-base text-muted-foreground">
             1 &amp; 2 December 2026 · La Cabana, Goa
