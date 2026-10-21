@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { GoldDivider, Reveal, SectionHeading } from "./decor";
-import { CalendarDays, Loader2, Send } from "lucide-react";
+import { CalendarDays, Loader2, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, type Mood } from "./Avatars";
 import { Bubble, type GuideLine } from "./Guide";
@@ -302,6 +302,23 @@ export default function RsvpSection() {
             <p className="mx-auto mt-5 max-w-md leading-relaxed text-muted-foreground">
               Your RSVP has reached the family. We'll be in touch soon about pickup and stay.
             </p>
+            <div className="mx-auto mt-6 max-w-md">
+              <a
+                href={`https://wa.me/919030023501?text=${encodeURIComponent(`Namaste Mahesh ji! Main ${guestName} — RSVP bhej diya hai. Goa mein milte hain! 🙏`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-14 w-full items-center justify-center gap-2.5 rounded-sm px-4 font-display text-lg font-semibold text-white shadow-md transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                style={{ background: "linear-gradient(135deg, #2bd06c, #1da851)" }}
+              >
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                Confirm on WhatsApp
+              </a>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                Ek tap mein Mahesh ji ko message chala jaayega — aapka RSVP pakka ho jaayega.
+                <br />
+                <span className="font-hindi">व्हाट्सऐप पर एक टैप में पुष्टि भेजें।</span>
+              </p>
+            </div>
             <p className="mt-4 font-display text-xl italic text-primary">“Dhanyavaad! Goa mein milte hain.”</p>
             {thanksNeedsTap ? (
               <Button type="button" variant="outline" onClick={() => void playVoice("thanks").then((ok) => setThanksNeedsTap(!ok))} className="mt-4 min-h-11 rounded-sm border-primary/60 text-primary">
