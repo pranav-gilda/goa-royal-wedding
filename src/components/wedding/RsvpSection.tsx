@@ -161,7 +161,7 @@ export default function RsvpSection() {
   }, [status]);
 
   // After a "yes", offer to save the date once the thank-you has had a moment to land.
-  const [calOpen, setCalOpen] = useState(false);
+  const [calOpen, setCalOpen] = useState(true); // TEMP-VERIFY
   useEffect(() => {
     if (status !== "done" || attending !== "yes") return;
     const t = setTimeout(() => setCalOpen(true), 1600);
