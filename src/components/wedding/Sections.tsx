@@ -115,7 +115,10 @@ export function Footer() {
       {FAMILY_HI.map((n) => (
         <p key={n} className="font-hindi mt-1 text-lg">{n}</p>
       ))}
-      <p className="mt-2 font-display text-sm italic text-muted-foreground">Sneh sahit: {FAMILY_EN.join(" · ")}</p>
+      <p className="mt-2 font-display text-sm italic text-muted-foreground">Sneh sahit:</p>
+      {FAMILY_EN.map((n) => (
+        <p key={n} className="font-display text-sm italic leading-snug text-muted-foreground">{n}</p>
+      ))}
        <p className="mt-5 font-display text-2xl italic text-primary">Hriday Se Nata · हृदय से नाता</p>
        <p className="mt-4 text-sm">
          <VenueLink className="text-foreground" />

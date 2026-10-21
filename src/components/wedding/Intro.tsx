@@ -403,7 +403,10 @@ export default function Intro() {
                         {FAMILY_HI.map((n) => (
                           <p key={n} className="font-hindi text-[1.05rem] leading-snug text-[#6b1f2c]">{n}</p>
                         ))}
-                        <p className="mt-1.5 font-display text-[0.8rem] italic leading-snug text-[#5a4630]">Sneh sahit: {FAMILY_EN.join(" · ")}</p>
+                        <p className="mt-1.5 font-display text-[0.8rem] italic leading-snug text-[#5a4630]">Sneh sahit:</p>
+                        {FAMILY_EN.map((n) => (
+                          <p key={n} className="font-display text-[0.8rem] italic leading-snug text-[#5a4630]">{n}</p>
+                        ))}
                         {hasVoice("blessing") ? (
                           <button type="button" onClick={() => void playVoice("blessing")} aria-label="Hear a blessing from the family" className="mt-2 rounded-full border border-[#8a5f12]/60 px-2 py-0.5 text-[0.68rem] text-[#8a5f12] hover:bg-[#8a5f12]/10">
                             ▶ Hear
