@@ -33,12 +33,14 @@ function Field({
   label,
   htmlFor,
   error,
+  hint,
   required = false,
   children,
 }: {
   label: string;
   htmlFor?: string;
   error?: string | undefined;
+  hint?: ReactNode;
   required?: boolean;
   children: ReactNode;
 }) {
@@ -48,6 +50,7 @@ function Field({
         {label}
         {required ? <Star /> : null}
       </label>
+      {hint ? <p className="mb-2 text-xs leading-relaxed text-muted-foreground">{hint}</p> : null}
       {children}
       {error ? <p className={errorClass}>{error}</p> : null}
     </div>
@@ -399,7 +402,24 @@ export default function RsvpSection() {
                     </AnimatePresence>
                   </div>
 
-                  <Field label="Aadhaar card of all guests (photo or PDF, up to 5)" htmlFor="r-id" error={errors.idFiles} required>
+                  <Field
+                    label="Aadhaar card of all guests (photo or PDF, up to 5)"
+                    htmlFor="r-id"
+                    error={errors.idFiles}
+                    required
+                    hint={
+                      <>
+                        Sirf resort check-in ke liye chahiye — ye poori tarah surakshit hai aur seedha family ke private folder mein jaata hai.
+                        <br />
+                        <span className="font-hindi">आधार कार्ड सिर्फ़ रिसॉर्ट चेक-इन के लिए है — पूरी तरह सुरक्षित है।</span>
+                        <br />
+                        Not comfortable uploading? WhatsApp it directly to Mahesh ji:{" "}
+                        <a href="https://wa.me/919030023501" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2">
+                          90300 23501
+                        </a>
+                      </>
+                    }
+                  >
                     <input id="r-id" name="idFiles" type="file" multiple accept="image/*,application/pdf" className={fileClass} aria-required="true" />
                   </Field>
 
@@ -426,7 +446,18 @@ export default function RsvpSection() {
                             ))}
                           </div>
                         </div>
-                        <Field label={`${isA ? "Arrival" : "Departure"} ticket (up to 5 files)`} htmlFor={`r-${kind}-files`} error={errors[`${kind}Files`]}>
+                        <Field
+                          label={`${isA ? "Arrival" : "Departure"} ticket (up to 5 files)`}
+                          htmlFor={`r-${kind}-files`}
+                          error={errors[`${kind}Files`]}
+                          hint={
+                            <>
+                              Ticket ka screenshot ya photo bhi chalega — PDF dhoondhne ki zaroorat nahin.
+                              <br />
+                              <span className="font-hindi">टिकट का स्क्रीनशॉट या फ़ोटो भी चलेगा।</span>
+                            </>
+                          }
+                        >
                           <input id={`r-${kind}-files`} name={`${kind}Files`} type="file" multiple accept="image/*,application/pdf" className={fileClass} />
                         </Field>
                       </fieldset>
