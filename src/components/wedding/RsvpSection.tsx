@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { GoldDivider, Reveal, SectionHeading } from "./decor";
-import { CalendarDays, Loader2, Send } from "lucide-react";
+import { CalendarDays, Loader2, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, type Mood } from "./Avatars";
 import { Bubble, type GuideLine } from "./Guide";
@@ -33,12 +33,14 @@ function Field({
   label,
   htmlFor,
   error,
+  hint,
   required = false,
   children,
 }: {
   label: string;
   htmlFor?: string;
   error?: string | undefined;
+  hint?: ReactNode;
   required?: boolean;
   children: ReactNode;
 }) {
@@ -48,6 +50,7 @@ function Field({
         {label}
         {required ? <Star /> : null}
       </label>
+      {hint ? <p className="mb-2 text-xs leading-relaxed text-muted-foreground">{hint}</p> : null}
       {children}
       {error ? <p className={errorClass}>{error}</p> : null}
     </div>
@@ -299,6 +302,23 @@ export default function RsvpSection() {
             <p className="mx-auto mt-5 max-w-md leading-relaxed text-muted-foreground">
               Your RSVP has reached the family. We'll be in touch soon about pickup and stay.
             </p>
+            <div className="mx-auto mt-6 max-w-md">
+              <a
+                href={`https://wa.me/919030023501?text=${encodeURIComponent(`Namaste Mahesh ji! Main ${guestName} — RSVP bhej diya hai. Goa mein milte hain! 🙏`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-14 w-full items-center justify-center gap-2.5 rounded-sm px-4 font-display text-lg font-semibold text-white shadow-md transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                style={{ background: "linear-gradient(135deg, #2bd06c, #1da851)" }}
+              >
+                <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                Confirm on WhatsApp
+              </a>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                Ek tap mein Mahesh ji ko message chala jaayega — aapka RSVP pakka ho jaayega.
+                <br />
+                <span className="font-hindi">व्हाट्सऐप पर एक टैप में पुष्टि भेजें।</span>
+              </p>
+            </div>
             <p className="mt-4 font-display text-xl italic text-primary">“Dhanyavaad! Goa mein milte hain.”</p>
             {thanksNeedsTap ? (
               <Button type="button" variant="outline" onClick={() => void playVoice("thanks").then((ok) => setThanksNeedsTap(!ok))} className="mt-4 min-h-11 rounded-sm border-primary/60 text-primary">
@@ -399,7 +419,24 @@ export default function RsvpSection() {
                     </AnimatePresence>
                   </div>
 
-                  <Field label="Aadhaar card of all guests (photo or PDF, up to 5)" htmlFor="r-id" error={errors.idFiles} required>
+                  <Field
+                    label="Aadhaar card of all guests (photo or PDF, up to 5)"
+                    htmlFor="r-id"
+                    error={errors.idFiles}
+                    required
+                    hint={
+                      <>
+                        Sirf resort check-in ke liye chahiye — ye poori tarah surakshit hai aur seedha family ke private folder mein jaata hai.
+                        <br />
+                        <span className="font-hindi">आधार कार्ड सिर्फ़ रिसॉर्ट चेक-इन के लिए है — पूरी तरह सुरक्षित है।</span>
+                        <br />
+                        Not comfortable uploading? WhatsApp it directly to Mahesh ji:{" "}
+                        <a href="https://wa.me/919030023501" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2">
+                          90300 23501
+                        </a>
+                      </>
+                    }
+                  >
                     <input id="r-id" name="idFiles" type="file" multiple accept="image/*,application/pdf" className={fileClass} aria-required="true" />
                   </Field>
 
@@ -426,7 +463,18 @@ export default function RsvpSection() {
                             ))}
                           </div>
                         </div>
-                        <Field label={`${isA ? "Arrival" : "Departure"} ticket (up to 5 files)`} htmlFor={`r-${kind}-files`} error={errors[`${kind}Files`]}>
+                        <Field
+                          label={`${isA ? "Arrival" : "Departure"} ticket (up to 5 files)`}
+                          htmlFor={`r-${kind}-files`}
+                          error={errors[`${kind}Files`]}
+                          hint={
+                            <>
+                              Ticket ka screenshot ya photo bhi chalega — PDF dhoondhne ki zaroorat nahin.
+                              <br />
+                              <span className="font-hindi">टिकट का स्क्रीनशॉट या फ़ोटो भी चलेगा।</span>
+                            </>
+                          }
+                        >
                           <input id={`r-${kind}-files`} name={`${kind}Files`} type="file" multiple accept="image/*,application/pdf" className={fileClass} />
                         </Field>
                       </fieldset>
