@@ -427,13 +427,6 @@ export default function RsvpSection() {
                     hint={
                       <>
                         Sirf resort check-in ke liye chahiye — ye poori tarah surakshit hai aur seedha family ke private folder mein jaata hai.
-                        <br />
-                        <span className="font-hindi">आधार कार्ड सिर्फ़ रिसॉर्ट चेक-इन के लिए है — पूरी तरह सुरक्षित है।</span>
-                        <br />
-                        Not comfortable uploading? WhatsApp it directly to Mahesh ji:{" "}
-                        <a href="https://wa.me/919030023501" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2">
-                          90300 23501
-                        </a>
                       </>
                     }
                   >
