@@ -50,7 +50,7 @@ function Field({
         {label}
         {required ? <Star /> : null}
       </label>
-      {hint ? <p className="mb-2 text-xs leading-relaxed text-muted-foreground">{hint}</p> : null}
+      {hint ? <p className="mb-2 text-sm leading-relaxed text-muted-foreground">{hint}</p> : null}
       {children}
       {error ? <p className={errorClass}>{error}</p> : null}
     </div>
@@ -470,8 +470,6 @@ export default function RsvpSection() {
                           hint={
                             <>
                               Ticket ka screenshot ya photo bhi chalega — PDF dhoondhne ki zaroorat nahin.
-                              <br />
-                              <span className="font-hindi">टिकट का स्क्रीनशॉट या फ़ोटो भी चलेगा।</span>
                             </>
                           }
                         >
