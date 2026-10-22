@@ -134,7 +134,7 @@ export function Footer() {
          <a href="tel:+919030023501">Mahesh · 9030023501</a>
          <a href="tel:+918790063653">Aditya · 8790063653</a>
          <a href="tel:+919032377026">Anirudh · 9032377026</a>
-         <a href="tel:+919246506020">Manish · 9246506020</a>
+         <a href="tel:+919246506020">Manish Dangra · 9246506020</a>
        </div>
     </footer>
   );
