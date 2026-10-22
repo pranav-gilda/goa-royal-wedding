@@ -2,11 +2,13 @@
 - [x] Make the invitation comfortable to read and use on phones.
 - [x] Change the invitation to an ivory-led royal palette.
 - [x] Add La Cabana Beach & Spa as the venue with a usable location link/map.
-- [ ] Incorporate Hrishikesh and Nandita and the nine events from the uploaded itinerary.
+- [x] Incorporate Hrishikesh and Nandita and the nine events from the uploaded itinerary.
 - [x] Verify the phone layout and venue link in the browser.
-- [ ] Replace placeholder background music with the uploaded song.
-- [ ] Add resort photos, wedding tagline, contacts, and confirmed travel/check-in details.
+- [x] Replace placeholder background music with the uploaded song.
+- [x] Add resort photos, wedding tagline, contacts, and confirmed travel/check-in details.
 - [x] Replace the old RSVP with family, arrival/departure, and private document fields.
 - [x] Connect and verify the family RSVP spreadsheet end to end.
 - [x] Organize guest ID, arrival, and departure uploads in Drive folders and link each guest's files in the RSVP sheet.
-- [ ] Check the updated invitation on a narrow phone screen.
+- [x] Check the updated invitation on a narrow phone screen.
+- [x] Keep the upload reassurance notes short: no Hindi lines, no WhatsApp fallback link, larger text.
+- [x] Spell the family name correctly in Hindi: गौलिकर.
