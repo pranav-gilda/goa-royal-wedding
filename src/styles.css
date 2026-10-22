@@ -9,8 +9,8 @@
 /*
  * Design system definition.
  *
-  * Royal Marwari wedding palette: ivory ground, emerald ink,
-  * gold filigree accents and royal blue details. All colors use oklch.
+  * Marwari wedding palette: ivory ground, emerald ink,
+  * gold filigree accents and deep blue details. All colors use oklch.
  */
 
 @theme inline {
@@ -48,7 +48,7 @@
 
 :root {
   --radius: 0.375rem;
-  /* Ivory paper, emerald ink, antique gold and royal blue. */
+  /* Ivory paper, emerald ink, antique gold and deep blue. */
   --background: oklch(0.975 0.017 92);
   --foreground: oklch(0.28 0.045 168);
   --card: oklch(0.995 0.008 92);
@@ -110,7 +110,7 @@
   }
 }
 
-/* ---------- Royal ornament utilities ---------- */
+/* ---------- Ornament utilities ---------- */
 
 .gold-text {
   color: var(--primary);
