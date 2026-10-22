@@ -5,4 +5,4 @@ export const FAMILY_HI = [
   "श्रीमती निरुपाजी एवं अजयजी गौलिकर",
 ] as const;
 
-export const FAMILY_EN = ["Yashoda Devi Gilda", "Rajshree & Mahesh Gilda", "Nirupa ji & Ajay ji Govalikar"] as const;
+export const FAMILY_EN = ["Yashoda Devi Gilda", "Rajshree & Mahesh Gilda", "Nirupa ji & Ajay ji Gowlikar"] as const;
