@@ -10,21 +10,19 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-         title: "Hrishikesh & Nandita — Wedding Invitation at La Cabana, Goa",
+         title: "Hrishikesh & Nandita - Wedding Invitation",
       },
       {
         name: "description",
-        content:
-           "शुभ विवाह — the families of Hrishikesh & Nandita invite you to celebrations on 1–2 December 2026 at La Cabana Beach & Spa, Goa. RSVP here.",
+        content: "Hrishikesh & Nandita - Wedding Invitation",
       },
       {
         property: "og:title",
-        content: "Hrishikesh & Nandita — A Royal Wedding in Goa",
+        content: "Hrishikesh & Nandita - Wedding Invitation",
       },
       {
         property: "og:description",
-        content:
-          "Two days, seven celebrations, one royal Goan wedding. RSVP for your family here.",
+        content: "Hrishikesh & Nandita - Wedding Invitation",
       },
       { property: "og:type", content: "website" },
       // Link previews (WhatsApp etc.) need an absolute URL; the file lives in public/.
